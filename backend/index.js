@@ -11,7 +11,7 @@ app.use(express.json());
 
 // Example route
 app.get('/', (req, res) => {
-  res.send('Backend is up and running!');
+  res.send('cheree is online!');
 });
 
 // Start server
