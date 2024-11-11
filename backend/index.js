@@ -1,4 +1,4 @@
-// server.js
+// server
 const express = require('express');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
@@ -9,8 +9,8 @@ mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true, 
   useUnifiedTopology: true 
 })
-.then(() => console.log('MongoDB connected'))
-.catch(err => console.error('MongoDB connection error:', err));
+.then(() => console.log('Connected to DB'))
+.catch(err => console.error('DB connection error:', err));
 
 const app = express();
 app.use(express.json());
