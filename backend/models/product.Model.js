@@ -9,7 +9,15 @@ const productSchema = new Schema({
   category: { type: Schema.Types.ObjectId, ref: "Category", required: true },
   stock: { type: Number, required: true },
   stockAvailbility: { type: Boolean, default: true },
-  image: { type: String, required: true },
+  imageUrl: {
+    type: String,
+    validate: {
+      validator: function (url) {
+        return /^https?:\/\/.*$/.test(url);
+      },
+      message: "Invalid URL",
+    },
+  },
   date: { type: Date, default: Date.now },
 });
 

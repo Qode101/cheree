@@ -1,10 +1,32 @@
 const productModel = require("../models/product.Model");
 const categoryModel = require("../models/category.Model");
+const { uploadOptimizeImage } = require("../utils/upload");
+
+exports.createP = async (req, res) => {
+  console.log(req.body, 434343, req.files);
+  res.status(200).json({ message: "Products created" });
+};
 
 // Create a new product
 exports.createProduct = async (req, res) => {
+  let product = req.body;
+  //console.log(434343, req.files);
   try {
-    const newProduct = await productModel.create(req.body);
+    // Upload the image to Cloudinary if an image file exists in the request
+    if (req.files) {
+      console.log(23232);
+
+      let imagePath =
+        "https://res.cloudinary.com/demo/image/upload/v1651585298/happy_people.jpg";
+      const optimizeUrl = await uploadOptimizeImage(imagePath);
+
+      product = {
+        ...req.body,
+        imageUrl: optimizeUrl,
+      };
+    }
+
+    const newProduct = await productModel.create(product);
     res.status(201).json(newProduct);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -29,7 +51,18 @@ exports.updateProduct = async (req, res) => {
   if (req.body.stockUpdate) {
     updateFields = {
       $inc: { stock: req.body.stockUpdate },
-      ...req.body,
+      ...updateFields,
+    };
+  }
+
+  if (req.files) {
+    let imagePath =
+      "https://res.cloudinary.com/demo/image/upload/v1651585298/happy_people.jpg";
+    const optimizeUrl = await uploadOptimizeImage(imagePath);
+
+    updateFields = {
+      ...updateFields,
+      imageUrl: optimizeUrl,
     };
   }
 
@@ -88,6 +121,12 @@ exports.findProductByCategory = async (req, res) => {
 
 //find a product by price
 exports.findProductByPrice = async (req, res) => {
+  const price = parseFloat(req.params.price);
+
+  if (isNaN(price)) {
+    return res.status(400).json({ message: "Invalid price" });
+  }
+
   try {
     const product = await productModel.find({ price: req.params.price });
     res.status(200).json(product);

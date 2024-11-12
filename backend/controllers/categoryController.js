@@ -1,9 +1,22 @@
 const categoryModel = require("../models/category.Model");
+const { uploadOptimizeImage } = require("../utils/upload");
 
 // Create a new category
 exports.createCategory = async (req, res) => {
+  let category = req.body;
   try {
-    const newCategory = await categoryModel.create(req.body);
+    // Upload the image to Cloudinary if an image file exists in the request
+    if (req.files) {
+      let imagePath =
+        "https://res.cloudinary.com/demo/image/upload/v1651585298/happy_people.jpg";
+      const optimizeUrl = await uploadOptimizeImage(imagePath);
+
+      category = {
+        ...category,
+        imageUrl: optimizeUrl,
+      };
+    }
+    const newCategory = await categoryModel.create(category);
     res.status(201).json(newCategory);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -22,10 +35,21 @@ exports.getCategory = async (req, res) => {
 
 // Update a category
 exports.updateCategory = async (req, res) => {
+  let updateFields = req.body;
+
   try {
+    if (req.files) {
+      let imagePath =
+        "https://res.cloudinary.com/demo/image/upload/v1651585298/happy_people.jpg";
+      const optimizeUrl = await uploadOptimizeImage(imagePath);
+      updateFields = {
+        ...updateFields,
+        imageUrl: optimizeUrl,
+      };
+    }
     const updatedCategory = await categoryModel.findByIdAndUpdate(
       req.params.id,
-      req.body,
+      updateFields,
       { new: true },
       (error, category) => {
         if (error) {
