@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
 });
 
 // Register users
-router.post('/register', async (req, res) => {
+router.post('/sign-up', async (req, res) => {
     const userData = req.body;
     const user = new User(userData);
     try {
