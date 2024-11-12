@@ -1,23 +1,25 @@
 // server
-const express = require('express');
-const dotenv = require('dotenv');
-const mongoose = require('mongoose');
+const express = require("express");
+const dotenv = require("dotenv");
+const mongoose = require("mongoose");
 
 dotenv.config();
+console.log(process.env.MONGODB_URI, process.env.PORT, "dev");
 
-mongoose.connect(process.env.MONGODB_URI, { 
-  useNewUrlParser: true, 
-  useUnifiedTopology: true 
-})
-.then(() => console.log('Connected to DB'))
-.catch(err => console.error('DB connection error:', err));
+mongoose
+  .connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("Connected to DB"))
+  .catch((err) => console.error("DB connection error:", err));
 
 const app = express();
 app.use(express.json());
 
 // Routes
-app.get('/', (req, res) => {
-  res.send('cheree is online!');
+app.get("/", (req, res) => {
+  res.send("cheree is online!");
 });
 
 const PORT = process.env.PORT || 5000;
