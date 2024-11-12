@@ -95,3 +95,13 @@ exports.findProductByPrice = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
+
+//view all products in the database
+exports.getAllProducts = async (req, res) => {
+  try {
+    const products = await productModel.find();
+    res.status(200).json(products);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
