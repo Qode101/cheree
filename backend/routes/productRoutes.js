@@ -12,7 +12,7 @@ const {
   deleteProduct,
 } = require("../controllers/productController");
 
-router.get("/allProducts", getAllProducts);
+router.get("/all", getAllProducts);
 router.get("/findByName/:name", findProductByName);
 router.get("/findByCategory/:category", findProductByCategory);
 router.get("/findByPrice/:price", findProductByPrice);
