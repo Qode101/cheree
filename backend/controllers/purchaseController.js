@@ -1,5 +1,5 @@
 const purchaseModel = require("../models/purchase.Model");
-
+const { checkIdExists } = require("../utils/utilites");
 // Get all purchases
 exports.getAllPurchases = async (req, res) => {
   try {
@@ -32,8 +32,13 @@ exports.getPurchaseByUser = async (req, res) => {
 
 // Create purchase
 exports.createPurchase = async (req, res) => {
-  const purchase = req.body;
-  const newPurchase = new purchaseModel(purchase);
+  const { products, amount, user } = req.body;
+  //check if all products exist
+  products.forEach(async (product) => {
+    await checkIdExists(product.product, productModel);
+  });
+
+  const newPurchase = new purchaseModel({ user, products, amount });
   try {
     await newPurchase.save();
     res.status(201).json(newPurchase);

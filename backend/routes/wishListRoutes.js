@@ -13,6 +13,6 @@ router.get("/all", getAllWishLists);
 router.get("/:id", getWishListById);
 router.get("/user/:id", getWishListByUser);
 router.post("/add", addProductToWishList);
-router.delete("/remove/:id", removeProductFromWishList);
+router.delete("/remove", removeProductFromWishList);
 
 module.exports = router;

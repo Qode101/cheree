@@ -1,7 +1,7 @@
 const wishListModel = require("../models/wishList.Model");
 const productModel = require("../models/product.Model");
 const userModel = require("../models/user");
-const mongoose = require("mongoose");
+const { checkIdExists } = require("../utils/utilites");
 
 // read all wishlists
 exports.getAllWishLists = async (req, res) => {
@@ -31,15 +31,6 @@ exports.getWishListByUser = async (req, res) => {
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
-};
-
-// check if id exists in the model
-const checkIdExists = async (id, model) => {
-  const found = await model.findById(id);
-  if (!found) {
-    throw new Error(`Id of ${model} not found: ${id}`);
-  }
-  return true;
 };
 
 // create wishlist
