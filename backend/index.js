@@ -3,13 +3,15 @@ const express = require("express");
 const dotenv = require("dotenv");
 const productRouter = require("./routes/productRoutes");
 const categoryRouter = require("./routes/categoryRoutes");
+const purchaseRouter = require("./routes/purchaseRoutes");
+const wishListRouter = require("./routes/wishListRoutes");
 const { logResponseDetails } = require("./middleware/logMiddleware");
 const mongoose = require("mongoose");
 const fileUpload = require("express-fileupload");
-const cors = require("cors");
+//const cors = require("cors");
 
 dotenv.config();
-console.log(process.env.MONGODB_URI, process.env.PORT, "dev");
+console.log(process.env.MONGODB_URI, process.env.PORT, "devs");
 
 mongoose
   .connect(process.env.MONGODB_URI)
@@ -20,19 +22,21 @@ const app = express();
 app.use(express.json());
 app.use(fileUpload());
 app.use(logResponseDetails);
-app.use(cors());
+//app.use(cors());
 
 const api = require("./routes/api");
-app.use("/api", api);
 
 // Example route
 app.get("/", (req, res) => {
   res.send("cheree is online!");
 });
 
-// Use product router
+// Routes
+app.use("/api", api); // user routes
 app.use("/products", productRouter);
 app.use("/category", categoryRouter);
+app.use("/purchase", purchaseRouter);
+app.use("/wishlist", wishListRouter);
 
 // Start server
 const PORT = process.env.PORT || 5000;
