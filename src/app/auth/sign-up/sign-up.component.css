@@ -1,13 +1,24 @@
 .auth-container {
     display: flex;
     height: 100vh;
-  }
+}
+
 .auth-image {
     flex: 0.6;
     background-color: #f3f3f3;
-    /*background-image: url(../../../assets/img2.jpg);*/
-    margin: 50Px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 50px;
 }
+
+.auth-image img {
+    max-width: 80%; /* Adjust this to control image size */
+    max-height: 70%; /* This keeps the image from taking too much vertical space */
+    object-fit: cover; /* Ensures the image keeps its aspect ratio */
+    border-radius: 8px; /* Optional: adds rounded corners to the image */
+}
+
 .auth-form {
     flex: 1;
     padding: 2rem;
@@ -19,23 +30,28 @@
     margin: auto;
     font-family: sans-serif;
 }
+
 .auth-form h2 {
     margin-bottom: 1rem;
 }
+
 .auth-form form {
     width: 100%;
     display: flex;
     flex-direction: column;
 }
+
 .auth-form label {
     margin-top: 1rem;
 }
+
 .auth-form input {
     padding: 0.5rem;
     margin-top: 0.5rem;
     border: 1px solid #ddd;
     border-radius: 4px;
 }
+
 .auth-form button {
     margin-top: 1.5rem;
     padding: 0.75rem;
@@ -45,12 +61,14 @@
     border-radius: 4px;
     cursor: pointer;
 }
+
 .divider {
     margin: 1.5rem 0;
     font-weight: bold;
     text-align: center;
     position: relative;
 }
+
 .divider::before, .divider::after {
     content: "";
     position: absolute;
@@ -59,12 +77,15 @@
     height: 1px;
     background: #ddd;
 }
+
 .divider::before {
     left: 0;
 }
+
 .divider::after {
     right: 0;
 }
+
 .social-button {
     margin-top: 1rem;
     padding: 0.75rem;
@@ -74,16 +95,20 @@
     cursor: pointer;
     font-size: medium;
 }
+
 .social-button.google {
     background-color: #db4437;
     color: white;
 }
+
 .social-button.facebook {
     background-color: #4267b2;
     color: white;
 }
+
 .link {
     color: #007bff;
     text-decoration: none;
     cursor: pointer;
-}  
+}
+  

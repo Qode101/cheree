@@ -1,11 +1,12 @@
+// src/app/app-routing.module.ts
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
+import { LandingComponent } from './landing/landing.component';
 
-const routes: Routes = [
-  { path: '', component: AppComponent }, // Route for landing page
-  { path: 'sign-up', component: SignUpComponent } // Route for sign-up page
+export const routes: Routes = [
+  { path: '', component: LandingComponent },
+  { path: 'signup', component: SignUpComponent }
 ];
 
 @NgModule({
@@ -13,4 +14,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-export const routingComponents = [AppComponent, SignUpComponent]
+
