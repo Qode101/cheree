@@ -8,7 +8,7 @@ const wishListRouter = require("./routes/wishListRoutes");
 const { logResponseDetails } = require("./middleware/logMiddleware");
 const mongoose = require("mongoose");
 const fileUpload = require("express-fileupload");
-//const cors = require("cors");
+const cors = require("cors");
 
 dotenv.config();
 console.log(process.env.MONGODB_URI, process.env.PORT, "devs");
@@ -22,7 +22,7 @@ const app = express();
 app.use(express.json());
 app.use(fileUpload());
 app.use(logResponseDetails);
-//app.use(cors());
+app.use(cors());
 
 const api = require("./routes/api");
 

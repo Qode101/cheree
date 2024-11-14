@@ -1,6 +1,7 @@
 const productModel = require("../models/product.Model");
 const categoryModel = require("../models/category.Model");
 const { uploadOptimizeImage } = require("../utils/upload");
+const { checkIdExists } = require("../utils/utilites");
 
 exports.createP = async (req, res) => {
   console.log(req.body, 434343, req.files);
@@ -9,7 +10,10 @@ exports.createP = async (req, res) => {
 
 // Create a new product
 exports.createProduct = async (req, res) => {
-  let product = req.body;
+  let { category, ...product } = req.body;
+  if (category) {
+    await checkIdExists(category, categoryModel);
+  }
   //console.log(434343, req.files);
   try {
     // Upload the image to Cloudinary if an image file exists in the request
@@ -21,7 +25,8 @@ exports.createProduct = async (req, res) => {
       const optimizeUrl = await uploadOptimizeImage(imagePath);
 
       product = {
-        ...req.body,
+        ...product,
+        category,
         imageUrl: optimizeUrl,
       };
     }
@@ -45,7 +50,14 @@ exports.getProduct = async (req, res) => {
 
 //update a product, if stockUpdate is passed in the body, it will update the stock
 exports.updateProduct = async (req, res) => {
-  let updateFields = req.body;
+  let { category, ...updateFields } = req.body;
+  if (category) {
+    await checkIdExists(category, categoryModel);
+    updateFields = {
+      ...updateFields,
+      category,
+    };
+  }
 
   // If stockUpdate is provided, increment the stock field
   if (req.body.stockUpdate) {
