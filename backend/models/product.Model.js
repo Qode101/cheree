@@ -21,4 +21,9 @@ const productSchema = new Schema({
   date: { type: Date, default: Date.now },
 });
 
+// query helper to find product by name
+productSchema.query.byName = function (name) {
+  return this.where({ name: new RegExp(name, "i") });
+};
+
 module.exports = mongoose.model("Product", productSchema);

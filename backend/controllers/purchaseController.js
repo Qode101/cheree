@@ -3,7 +3,7 @@ const { checkIdExists } = require("../utils/utilites");
 // Get all purchases
 exports.getAllPurchases = async (req, res) => {
   try {
-    const purchases = await purchaseModel.find();
+    const purchases = await purchaseModel.find().populate(products);
     res.status(200).json(purchases);
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -13,7 +13,7 @@ exports.getAllPurchases = async (req, res) => {
 // Get purchase by ID
 exports.getPurchaseById = async (req, res) => {
   try {
-    const purchase = await purchaseModel.findById(req.params.id);
+    const purchase = await purchaseModel.findById(req.params.id).populate(products);
     res.status(200).json(purchase);
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -23,7 +23,7 @@ exports.getPurchaseById = async (req, res) => {
 // get purchase by user
 exports.getPurchaseByUser = async (req, res) => {
   try {
-    const purchase = await purchaseModel.find({ user: req.params.id });
+    const purchase = await purchaseModel.find({ user: req.params.id }).populate(products);
     res.status(200).json(purchase);
   } catch (error) {
     res.status(404).json({ message: error.message });

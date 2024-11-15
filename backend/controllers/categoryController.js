@@ -87,7 +87,10 @@ exports.viewAllCategories = async (req, res) => {
 //find a category by name
 exports.findCategoryByName = async (req, res) => {
   try {
-    const category = await categoryModel.find({ name: req.params.name });
+    const category = await categoryModel.find().byName(req.params.name);
+    if (!category) {
+      return res.status(404).json({ message: "Category not found" });
+    }
     res.status(200).json(category);
   } catch (error) {
     res.status(404).json({ message: error.message });

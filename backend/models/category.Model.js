@@ -8,4 +8,9 @@ const categorySchema = new Schema({
   imageUrl: { type: String },
 });
 
+// query help to find catergory by name
+categorySchema.query.byName = function (name) {
+  return this.where({ name: new RegExp(name, "i") });
+};
+
 module.exports = mongoose.model("Category", categorySchema);

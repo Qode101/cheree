@@ -108,7 +108,10 @@ exports.deleteProduct = async (req, res) => {
 //find a product by name
 exports.findProductByName = async (req, res) => {
   try {
-    const product = await productModel.find({ name: req.params.name });
+    const product = await productModel.find().byName(req.params.name);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
     res.status(200).json(product);
   } catch (error) {
     res.status(404).json({ message: error.message });

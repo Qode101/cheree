@@ -6,7 +6,7 @@ const { checkIdExists } = require("../utils/utilites");
 // read all wishlists
 exports.getAllWishLists = async (req, res) => {
   try {
-    const wishLists = await wishListModel.find();
+    const wishLists = await wishListModel.find().populate(products);
     res.status(200).json(wishLists);
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -16,7 +16,7 @@ exports.getAllWishLists = async (req, res) => {
 // read wishlist by ID
 exports.getWishListById = async (req, res) => {
   try {
-    const wishList = await wishListModel.findById(req.params.id);
+    const wishList = await wishListModel.findById(req.params.id).populate(products);
     res.status(200).json(wishList);
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -26,7 +26,7 @@ exports.getWishListById = async (req, res) => {
 // read wishlist by user
 exports.getWishListByUser = async (req, res) => {
   try {
-    const wishList = await wishListModel.find({ user: req.params.id });
+    const wishList = await wishListModel.find({ user: req.params.id }).populate(products);
     res.status(200).json(wishList);
   } catch (error) {
     res.status(404).json({ message: error.message });
