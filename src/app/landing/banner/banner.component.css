@@ -1,6 +1,6 @@
 /* Banner Container */
 .banner-container {
-  width: 1200px;
+  width: 1250px;
   min-height: 90vh;
   background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
   padding: 2rem;
@@ -145,47 +145,101 @@
   }
 }
 
-/* Responsive Design */
-@media (max-width: 1024px) {
+/* Mobile Queries */
+@media (max-width: 768px) {
+  /* Banner Container */
+  .banner-container {
+    width: 100%;
+    padding: 1rem;
+    min-height: 70vh;
+    display: block; /* Switch from flex to block for better stacking */
+  }
+
+  /* Content Layout */
   .banner-content {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
     gap: 2rem;
     padding: 1rem;
   }
-}
 
-@media (max-width: 768px) {
-  .banner-container {
-    min-height: auto;
-    padding: 4rem 1rem;
-  }
-
-  .banner-content {
-    grid-template-columns: 1fr;
+  /* Text Section */
+  .banner-text {
+    align-items: center; /* Center-align text */
     text-align: center;
   }
 
-  .banner-text {
-    align-items: center;
+  .banner-title {
+    font-size: clamp(2rem, 4vw, 3rem); /* Adjust font size for smaller screens */
   }
 
+  .banner-tagline {
+    font-size: clamp(0.875rem, 1.5vw, 1rem); /* Smaller tagline */
+    max-width: 100%; /* Full width */
+  }
+
+  /* CTA Buttons */
   .banner-cta {
-    justify-content: center;
+    justify-content: center; /* Center buttons */
+    flex-wrap: wrap; /* Wrap buttons if needed */
+    gap: 0.5rem;
   }
 
+  .primary-btn, .secondary-btn {
+    padding: 0.75rem 1.5rem; /* Smaller buttons */
+    font-size: 0.875rem; /* Adjust font size */
+  }
+
+  /* Image Section */
   .banner-image {
-    grid-row: 1;
-    max-width: 500px;
-    margin: 0 auto;
+    margin-top: 5rem;
+    order: -1; /* Move the image to appear first */
+    text-align: center; /* Center-align image */
+    margin-bottom: 1rem;
+  }
+
+  .main-image {
+    border-radius: 10px; /* Smaller radius for smaller screens */
+  }
+
+  .accent-circle {
+    width: 200px;
+    height: 200px;
+    top: 10px;
+    right: 10px;
   }
 }
 
 @media (max-width: 480px) {
-  .banner-cta {
-    flex-direction: column;
-    width: 100%;
+  /* Further Adjustments for Extra Small Screens */
+  .banner-container {
+    min-height: 60vh;
+  }
+
+  .banner-title {
+    font-size: clamp(1.5rem, 5vw, 2.5rem); /* Even smaller titles */
+  }
+
+  .banner-tagline {
+    font-size: clamp(0.75rem, 1vw, 0.875rem);
   }
 
   .primary-btn, .secondary-btn {
-    width: 100%;
+    width: 100%; /* Full-width buttons for mobile */
+    padding: 0.75rem 1rem;
+  }
+
+  .banner-cta {
+    gap: 0.5rem;
+    flex-direction: column; /* Stack buttons vertically */
+  }
+
+  .main-image {
+    border-radius: 5px; /* Smaller radius */
+  }
+
+  .accent-circle {
+    display: none; /* Hide decorative circle on very small screens */
   }
 }
+
