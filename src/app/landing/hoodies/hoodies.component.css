@@ -1,83 +1,201 @@
-.hoodies-section {
-  background-color: #fff;
-  padding: 5rem 2rem;
+/* styles.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.hoodies-section h1 {
-  font-size: 3rem;
-  font-weight: 800;
-  text-align: center;
-  margin-bottom: 3rem;
-  color: #333;
+body {
+    font-family: 'Inter', sans-serif;
+    background: #f8f9fa;
 }
 
-.hoodies-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 3rem;
+.hoodie-collection {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.hoodie-card {
-  background-color: #f5f5f5;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
+.collection-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
 }
 
-.hoodie-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
-}
-
-.hoodie-image img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-
-.hoodie-details {
-  padding: 1.5rem;
-}
-
-.hoodie-details h3 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 0.75rem;
-  color: #333;
-}
-
-.hoodie-details p {
-  font-size: 1.1rem;
-  color: #666;
-}
-
-@media (max-width: 768px) {
-  .hoodies-section {
-    padding: 4rem 1.5rem;
-  }
-
-  .hoodies-section h1 {
+.title {
     font-size: 2.5rem;
-  }
+    font-weight: 700;
+    color: #2d3436;
+    position: relative;
+    display: inline-block;
+}
 
-  .hoodies-grid {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  }
+.title .accent {
+    color: #0984e3;
+}
 
-  .hoodie-image img {
-    height: 180px;
-  }
+.title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background: #0984e3;
+    border-radius: 2px;
+}
 
-  .hoodie-details {
-    padding: 1.25rem;
-  }
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 2.5rem;
+    padding: 1rem;
+}
 
-  .hoodie-details h3 {
-    font-size: 1.3rem;
-  }
+.product-card {
+    position: relative;
+    transition: transform 0.3s ease;
+}
 
-  .hoodie-details p {
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-card:hover .product-image {
+    transform: scale(1.02);
+}
+
+.product-card:hover .product-title {
+    opacity: 1;
+}
+
+.product-image-wrapper {
+    position: relative;
+    padding-top: 125%; /* Taller aspect ratio for hoodies */
+    border-radius: 15px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+.product-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.price-tag {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 0.6rem 1rem;
+    border-radius: 25px;
+    font-weight: 600;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover .price-tag {
+    transform: translateY(-3px);
+}
+
+.price-tag .currency {
+    font-size: 0.8rem;
+    margin-right: 0.2rem;
+    opacity: 0.9;
+}
+
+.price-tag .amount {
+    font-size: 1.1rem;
+}
+
+.product-title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    color: white;
+    margin: 0;
     font-size: 1rem;
-  }
+    font-weight: 500;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.special-edition {
+    color: #ffd43b;
+    font-weight: 500;
+    display: block;
+    font-size: 0.9rem;
+    margin-top: 0.3rem;
+}
+
+/* Hover Effects */
+.product-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.product-card:hover::before {
+    opacity: 1;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .hoodie-collection {
+        padding: 1rem;
+    }
+    
+    .products-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .title {
+        font-size: 2rem;
+    }
+    
+    .product-title {
+        opacity: 1;
+        font-size: 0.9rem;
+        padding: 1rem;
+    }
+
+    .title::after {
+        width: 40px;
+        bottom: -8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .product-image-wrapper {
+        padding-top: 100%;
+    }
 } 
