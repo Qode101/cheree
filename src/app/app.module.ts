@@ -13,7 +13,6 @@ import { AuthService } from './auth.service';
   declarations: [
     AppComponent,
     SignUpComponent,
-    SignUpComponent,
     LoginComponent
   ],
   imports: [
