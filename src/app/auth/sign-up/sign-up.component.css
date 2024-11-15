@@ -2,10 +2,12 @@
 
 .auth-container {
   display: flex;
-  max-width: 900px;
+  font-family: Arial, Helvetica, sans-serif;
+  height: 90vh;
+  width: 1500px;
   margin: 50px auto;
   border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(255, 104, 104, 0.1);
   overflow: hidden;
   background-color: #ffffff;
 }
@@ -62,23 +64,23 @@
 }
 
 .auth-form input:focus {
-  border-color: #007bff;
+  border-color: #000000;
 }
 
 .auth-form button[type="submit"] {
   margin-top: 20px;
   padding: 12px;
   font-size: 16px;
-  color: #fff;
-  background-color: #007bff;
-  border: none;
+  color: #ffffff;
+  background-color: #000000;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .auth-form button[type="submit"]:hover {
-  background-color: #0056b3;
+  background-color: #000000;
+  color: #fff;
 }
 
 .divider {
@@ -119,27 +121,32 @@
 }
 
 .social-button.google {
-  background-color: #db4437;
-  color: #fff;
+  background-color: #ffffff;
+  color: #000000;
+  border: 2px solid #000000;
 }
 
 .social-button.facebook {
-  background-color: #3b5998;
-  color: #fff;
+  background-color: #ffffff;
+  color: #000000;
+  border: 2px solid #000000;
 }
 
 .social-button.google:hover {
-  background-color: #c23321;
+  background-color: #000000;
+  color: #ffffff;
 }
 
 .social-button.facebook:hover {
-  background-color: #2d4373;
+  background-color: #000000;
+  color: #ffffff;
 }
 
 .link {
   color: #007bff;
   text-decoration: none;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .link:hover {
