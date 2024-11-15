@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const jwt = require('jwt');
 const User = require('../models/user');
 
 // Root route for testing API connection

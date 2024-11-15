@@ -6,12 +6,12 @@
       <h2>Welcome Back!</h2>
       <form>
         <label for="email">Email</label>
-        <input id="email" type="email" placeholder="Enter your email">
+        <input [(ngModel)]="loginUserData.email" id="email" type="email" placeholder="Enter your email">
   
         <label for="password">Password</label>
-        <input id="password" type="password" placeholder="Enter your password">
+        <input [(ngModel)]="loginUserData.password" id="password" type="password" placeholder="Enter your password">
   
-        <button type="submit">Login</button>
+        <button (click)="loginUser()" type="submit">Login</button>
       </form>
       <div class="divider">or</div>
       <button class="social-button google">Login with Google</button>

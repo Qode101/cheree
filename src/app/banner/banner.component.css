@@ -1,0 +1,22 @@
+/* banner.component.css */
+.banner-container {
+  background-color: #f8f9fa; /* Light grey background */
+  text-align: center; /* Center the text */
+  /* padding: 8px 0; */
+  height: 29px;
+  margin-top: -15px;
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+}
+
+.banner-container h1 {
+  font-size: 1.5rem; /* Smaller font size for the titl*/
+  color: #343a40; /* Dark grey color for the text */
+  margin-bottom: 0.5px; /* Minimal space below the title */
+}
+
+.banner-container p {
+  font-size: 0.8rem; /* Smaller font size for the tagline */
+  color: #70879b; /* Medium grey color for the text */
+  margin-bottom: 1.5px; /* Minimal space below the title */
+}
