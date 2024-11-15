@@ -1,87 +1,197 @@
-.marketing-container {
-    padding: 20px;
-    text-align: center;
-  }
-  
-  .cards-container {
-    display: inline-flex;
-    justify-content: space-around;
-    overflow-x: hidden;
-    max-width: 1897px;
-    /* padding: auto; */
-    /* padding: 5px 0; */
-  }
-  
-  .card {
-    background: #fff;
-    /* border: 1px solid #ddd; */
-    /* border-radius: 8px; */
-    /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
-    flex: 0 0 22%;
-    /* margin: 0 10px; */
-    /* padding: 20px; */
-    text-align: left;
-    transition: transform 0.3s;
-    max-width: 900px;
-    padding: auto;
-  }
-  
-  .card img {
-    /* border-radius: 8px 8px 0 0; */
-    max-width: 100%;
-    height: auto;
-  }
-  
-  .card h3 {
-    font-size: 1.2em;
-    margin: 10px 0;
-  }
-  
-  .card p {
-    color: #666;
-    font-size: 0.9em;
-    margin-bottom: 15px;
-  }
-  
-  .card button {
-    /* background-color: #d32f2f;
-    border: none;
-    border-radius: 4px;
-    color: white;
-    cursor: pointer;
-    padding: 10px 20px;
-    text-align: center;
-    font-size: 1em;
-    display: inline-block;
-    margin-top: 10px; */
-    color: black;
-    font-weight: 100;
-    display: inline-block;
-    text-align: center;
-    align-items: center;
-    transition: color 0.3s;
-    border-radius: 1em;
-    align-items: right;
-    margin: auto;
-    background-color: inherit;
-    height: 35px;
-    cursor: pointer;
-  }
-  
-  .card button:hover {
-    /* background-color: #c12727; */
-    color: #faf8f8;
-    background-color: rgb(7, 7, 3);
+.blog-section {
+  padding: 4rem 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.blog-section__header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.blog-section__title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.blog-section__subtitle {
+  font-size: 1.125rem;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.blog-section__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.blog-card {
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 
+              0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 
+              0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.blog-card__image-wrapper {
+  position: relative;
+  padding-top: 66.67%; /* 3:2 aspect ratio */
+  overflow: hidden;
+}
+
+.blog-card__image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.blog-card:hover .blog-card__image {
+  transform: scale(1.05);
+}
+
+.blog-card__category {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #2563eb;
+}
+
+.blog-card__content {
+  padding: 1.5rem;
+}
+
+.blog-card__title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.blog-card__description {
+  font-size: 0.875rem;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.blog-card__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #2563eb;
+  color: white;
+  font-weight: 500;
+  font-size: 0.875rem;
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  text-decoration: none;
+}
+
+.blog-card__button:hover {
+  background-color: #1e59c5;
+  transform: translateY(-2px);
+}
+
+.blog-card__button-icon {
+  font-size: 1.25rem;
+  transition: transform 0.3s ease;
+}
+
+.blog-card__button:hover .blog-card__button-icon {
+  transform: translateX(2px);
+}
+
+.blog-card__button:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+/* For dark mode support */
+@media (prefers-color-scheme: dark) {
+  .blog-card__button {
+    background: #3498db;
   }
 
-  .img {
-    width: 100%;
-    height: 12rem;
-    object-fit: cover;
-    transition: transform 0.7s;
+  .blog-card__button:hover {
+    background-color: #2980b9;
   }
-  
-  .card:hover .img {
-    transform: scale(1.1);
+}
+
+/* Optional: Add a ripple effect on click */
+.blog-card__button {
+  position: relative;
+  overflow: hidden;
+}
+
+.blog-card__button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0));
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.blog-card__button:active::after {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(0);
+}
+/* Responsive Design */
+@media (max-width: 768px) {
+  .blog-section {
+    padding: 3rem 1rem;
   }
-  
+
+  .blog-section__title {
+    font-size: 2rem;
+  }
+
+  .blog-section__grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* Optional: Add smooth scrolling to the whole page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Optional: Improve text rendering */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+} 

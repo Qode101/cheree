@@ -1,22 +1,191 @@
-/* banner.component.css */
+/* Banner Container */
 .banner-container {
-  background-color: #f8f9fa; /* Light grey background */
-  text-align: center; /* Center the text */
-  /* padding: 8px 0; */
-  height: 29px;
-  margin-top: -15px;
-  padding-bottom: 8px;
-  margin-bottom: 8px;
+  width: 1200px;
+  min-height: 90vh;
+  background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
 }
 
-.banner-container h1 {
-  font-size: 1.5rem; /* Smaller font size for the titl*/
-  color: #343a40; /* Dark grey color for the text */
-  margin-bottom: 0.5px; /* Minimal space below the title */
+/* Content Layout */
+.banner-content {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  padding: 2rem;
 }
 
-.banner-container p {
-  font-size: 0.8rem; /* Smaller font size for the tagline */
-  color: #70879b; /* Medium grey color for the text */
-  margin-bottom: 1.5px; /* Minimal space below the title */
+/* Text Section */
+.banner-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  z-index: 1;
+}
+
+.banner-title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: #1a1a1a;
+  margin: 0;
+  animation: slideUp 0.8s ease-out;
+}
+
+.banner-tagline {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: #666;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 500px;
+  animation: slideUp 0.8s ease-out 0.2s both;
+}
+
+/* CTA Buttons */
+.banner-cta {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  animation: slideUp 0.8s ease-out 0.4s both;
+}
+
+.primary-btn, .secondary-btn {
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.primary-btn {
+  background: #1a1a1a;
+  color: white;
+  border: none;
+}
+
+.secondary-btn {
+  background: transparent;
+  color: #1a1a1a;
+  border: 2px solid #1a1a1a;
+}
+
+.primary-btn:hover, .secondary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Image Section */
+.banner-image {
+  position: relative;
+  animation: fadeIn 1s ease-out;
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.main-image {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.accent-circle {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  border-radius: 50%;
+  top: -20px;
+  right: -20px;
+  z-index: 1;
+  opacity: 0.1;
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Animations */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .banner-content {
+    gap: 2rem;
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .banner-container {
+    min-height: auto;
+    padding: 4rem 1rem;
+  }
+
+  .banner-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .banner-text {
+    align-items: center;
+  }
+
+  .banner-cta {
+    justify-content: center;
+  }
+
+  .banner-image {
+    grid-row: 1;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .banner-cta {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .primary-btn, .secondary-btn {
+    width: 100%;
+  }
 }

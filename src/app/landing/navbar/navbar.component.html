@@ -1,0 +1,118 @@
+<nav class="nav-container">
+  <div class="nav-content">
+    <!-- Logo Section -->
+    <div class="nav-logo">
+      <img src="assets/cheree-logo-Black.png" alt="Cheree Logo" class="logo-image">
+    </div>
+
+    <!-- Main Menu -->
+    <ul class="nav-menu">
+      <li class="nav-item">
+        <span>Our Collections</span>
+      </li>
+      
+      <li class="nav-item" 
+          (mouseenter)="activeDropdown = 'featured'"
+          (mouseleave)="activeDropdown = null">
+        <span class="flex-center">
+          New & Featured
+          <svg *ngIf="activeDropdown !== 'featured'" class="chevron" width="12" height="12" viewBox="0 0 24 24">
+            <path d="M6 9L12 15L18 9" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <svg *ngIf="activeDropdown === 'featured'" class="chevron rotated" width="12" height="12" viewBox="0 0 24 24">
+            <path d="M6 9L12 15L18 9" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </span>
+
+        <div class="mega-dropdown" *ngIf="activeDropdown === 'featured'" @dropdownAnimation>
+          <div class="dropdown-grid">
+            <!-- New & Featured Section -->
+            <div class="dropdown-section">
+              <h4>New & Featured</h4>
+              <ul>
+                <li><a href="#">New Arrivals</a></li>
+                <li><a href="#">Best Sellers</a></li>
+                <li><a href="#">New & Upcoming Drops</a></li>
+              </ul>
+            </div>
+
+            <!-- Trending Section -->
+            <div class="dropdown-section">
+              <h4>Trending</h4>
+              <ul>
+                <li><a href="#">ACG</a></li>
+                <li><a href="#">Lifestyle Running</a></li>
+                <li><a href="#">The Color Shop</a></li>
+                <li><a href="#">Shop Sport</a></li>
+                <li><a href="#">Father's Day Shop</a></li>
+                <li><a href="#">Jordan Heat Check</a></li>
+                <li><a href="#">Aura Bag</a></li>
+              </ul>
+            </div>
+
+            <!-- Shop Classics Section -->
+            <div class="dropdown-section">
+              <h4>Shop Classics</h4>
+              <ul>
+                <li><a href="#">Dunk</a></li>
+                <li><a href="#">Air Jordan 1</a></li>
+                <li><a href="#">Air Force</a></li>
+                <li><a href="#">Air Max</a></li>
+                <li><a href="#">Blazer</a></li>
+                <li><a href="#">Vomero</a></li>
+              </ul>
+            </div>
+
+            <!-- Explore Section -->
+            <div class="dropdown-section">
+              <h4>Explore</h4>
+              <ul>
+                <li><a href="#">SNKRS Launch Calendar</a></li>
+                <li><a href="#">Running Shoe Finder</a></li>
+                <li><a href="#">Bra Finder</a></li>
+                <li><a href="#">Product Care</a></li>
+                <li><a href="#">Member Rewards</a></li>
+                <li><a href="#">Buying Guides</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <span>Men</span>
+      </li>
+      <li class="nav-item">
+        <span>Women</span>
+      </li>
+      <li class="nav-item">
+        <span>Kids</span>
+      </li>
+      <li class="nav-item">
+        <span>Jordan</span>
+      </li>
+    </ul>
+
+    <!-- Icons Section -->
+    <div class="nav-icons">
+      <button class="icon-button" aria-label="Search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </button>
+      <button class="icon-button" aria-label="Favorites">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+      </button>
+      <button class="icon-button" aria-label="Shopping Cart">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="9" cy="21" r="1"/>
+          <circle cx="20" cy="21" r="1"/>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>

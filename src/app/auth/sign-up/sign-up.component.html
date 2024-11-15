@@ -1,30 +1,29 @@
-<!-- src/app/auth/sign-up/sign-up.component.html -->
 <div class="auth-container">
-    <div class="auth-image">
-      <img src="assets/img5.jpg" alt="Sign Up Image">
-    </div>
-    <div class="auth-form">
-      <h2>Create an Account</h2>
-      <form>
-        <label for="name">First Name</label>
-        <input [(ngModel)]="registerUserData.firstName" id="firstName" type="text" placeholder="Enter your first name" required>
+  <div class="auth-image">
+    <img src="assets/img5.jpg" alt="Sign Up Image">  <!-- Check if the image path is correct -->
+  </div>
+  <div class="auth-form">
+    <h2>Create an Account</h2>
+    <form #signUpForm="ngForm" (ngSubmit)="registerUser(signUpForm)">
+      <label for="firstName">First Name</label>
+      <input [(ngModel)]="registerUserData.firstName" name="firstName" id="firstName" type="text" placeholder="Enter your first name" required>
 
-        <label for="name">Last Name</label>
-        <input [(ngModel)]="registerUserData.lastName" id="lastName" type="text" placeholder="Enter your last name" required>
-  
-        <label for="email">Email</label>
-        <input [(ngModel)]="registerUserData.email" id="email" type="email" placeholder="Enter your email" required>
-  
-        <label for="password">Password</label>
-        <input [(ngModel)]="registerUserData.password" id="password" type="password" placeholder="Enter your password" required>
-  
-        <button (click)="registerUser()" type="submit">Sign In</button>
-      </form>
-      <div class="divider">or</div>
-      <button class="social-button google">Sign In with Google</button>
-      <button class="social-button facebook">Sign In with Facebook</button>
-  
-      <p>Already have an account? <a routerLink="/login" class="link">LOGIN</a></p>
-    </div>
-  </div>  
+      <label for="lastName">Last Name</label>
+      <input [(ngModel)]="registerUserData.lastName" name="lastName" id="lastName" type="text" placeholder="Enter your last name" required>
+
+      <label for="email">Email</label>
+      <input [(ngModel)]="registerUserData.email" name="email" id="email" type="email" placeholder="Enter your email" required>
+
+      <label for="password">Password</label>
+      <input [(ngModel)]="registerUserData.password" name="password" id="password" type="password" placeholder="Enter your password" required>
+
+      <button type="submit">Sign Up</button>
+    </form>
+    <div class="divider">or</div>
+    <button class="social-button google">Sign Up with Google</button>
+    <button class="social-button facebook">Sign Up with Facebook</button>
+
+    <p>Already have an account? <a routerLink="/login" class="link">LOGIN</a></p>
+  </div>
+</div>
 
