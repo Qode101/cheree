@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../auth.service';
+import { FormsModule } from '@angular/forms'; // Import FormsModule
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [],
+  imports: [FormsModule], // Add FormsModule here
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.css'],
 })
-export class SignUpComponent implements OnInit{
+export class SignUpComponent implements OnInit {
 
   registerUserData = {
     firstName: '',
@@ -16,15 +17,16 @@ export class SignUpComponent implements OnInit{
     email: '',
     password: ''
   };
-  constructor( private _auth: AuthService) { }
 
-  ngOnInit() {
-  }
+  constructor(private _auth: AuthService) { }
+
+  ngOnInit() { }
+
   registerUser() {
     this._auth.registerUser(this.registerUserData)
-    .subscribe(
-      res => console.log(res),
-      err => console.log(err)
-    )
+      .subscribe(
+        res => console.log(res),
+        err => console.log(err)
+      );
   }
 }
