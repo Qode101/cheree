@@ -5,10 +5,12 @@
     <div class="auth-form">
       <h2>Welcome Back!</h2>
       <form>
+
         <label for="email">Email</label>
         <input [(ngModel)]="loginUserData.email" id="email" type="email" placeholder="Enter your email">
   
         <label for="password">Password</label>
+
         <input [(ngModel)]="loginUserData.password" id="password" type="password" placeholder="Enter your password">
   
         <button (click)="loginUser()" type="submit">Login</button>
@@ -19,4 +21,4 @@
   
       <p>Don't have an account? <a routerLink="/sign-up" class="link">SIGN UP</a></p>
     </div>
-  </div>  
+  </div>
