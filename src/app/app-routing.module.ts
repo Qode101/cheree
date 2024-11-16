@@ -2,15 +2,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
-import { LandingComponent } from './landing/landing.component';
+import { LoginComponent } from './auth/login/login.component';
 
-export const routes: Routes = [
-  { path: '', component: LandingComponent },
-  { path: 'signup', component: SignUpComponent }
+const routes: Routes = [
+  { path: 'sign-up', component: SignUpComponent },
+  { path: 'login', component: LoginComponent },
+  { path: '', redirectTo: '/sign-up', pathMatch: 'full' } // Redirect to sign-up by default
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule { }
