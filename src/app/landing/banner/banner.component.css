@@ -1,0 +1,245 @@
+/* Banner Container */
+.banner-container {
+  width: 1250px;
+  min-height: 90vh;
+  background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Content Layout */
+.banner-content {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  padding: 2rem;
+}
+
+/* Text Section */
+.banner-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  z-index: 1;
+}
+
+.banner-title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: #1a1a1a;
+  margin: 0;
+  animation: slideUp 0.8s ease-out;
+}
+
+.banner-tagline {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: #666;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 500px;
+  animation: slideUp 0.8s ease-out 0.2s both;
+}
+
+/* CTA Buttons */
+.banner-cta {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  animation: slideUp 0.8s ease-out 0.4s both;
+}
+
+.primary-btn, .secondary-btn {
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.primary-btn {
+  background: #1a1a1a;
+  color: white;
+  border: none;
+}
+
+.secondary-btn {
+  background: transparent;
+  color: #1a1a1a;
+  border: 2px solid #1a1a1a;
+}
+
+.primary-btn:hover, .secondary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Image Section */
+.banner-image {
+  position: relative;
+  animation: fadeIn 1s ease-out;
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.main-image {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.accent-circle {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  border-radius: 50%;
+  top: -20px;
+  right: -20px;
+  z-index: 1;
+  opacity: 0.1;
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Animations */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+/* Mobile Queries */
+@media (max-width: 768px) {
+  /* Banner Container */
+  .banner-container {
+    width: 100%;
+    padding: 1rem;
+    min-height: 70vh;
+    display: block; /* Switch from flex to block for better stacking */
+  }
+
+  /* Content Layout */
+  .banner-content {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    gap: 2rem;
+    padding: 1rem;
+  }
+
+  /* Text Section */
+  .banner-text {
+    align-items: center; /* Center-align text */
+    text-align: center;
+  }
+
+  .banner-title {
+    font-size: clamp(2rem, 4vw, 3rem); /* Adjust font size for smaller screens */
+  }
+
+  .banner-tagline {
+    font-size: clamp(0.875rem, 1.5vw, 1rem); /* Smaller tagline */
+    max-width: 100%; /* Full width */
+  }
+
+  /* CTA Buttons */
+  .banner-cta {
+    justify-content: center; /* Center buttons */
+    flex-wrap: wrap; /* Wrap buttons if needed */
+    gap: 0.5rem;
+  }
+
+  .primary-btn, .secondary-btn {
+    padding: 0.75rem 1.5rem; /* Smaller buttons */
+    font-size: 0.875rem; /* Adjust font size */
+  }
+
+  /* Image Section */
+  .banner-image {
+    margin-top: 5rem;
+    order: -1; /* Move the image to appear first */
+    text-align: center; /* Center-align image */
+    margin-bottom: 1rem;
+  }
+
+  .main-image {
+    border-radius: 10px; /* Smaller radius for smaller screens */
+  }
+
+  .accent-circle {
+    width: 200px;
+    height: 200px;
+    top: 10px;
+    right: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Further Adjustments for Extra Small Screens */
+  .banner-container {
+    min-height: 60vh;
+  }
+
+  .banner-title {
+    font-size: clamp(1.5rem, 5vw, 2.5rem); /* Even smaller titles */
+  }
+
+  .banner-tagline {
+    font-size: clamp(0.75rem, 1vw, 0.875rem);
+  }
+
+  .primary-btn, .secondary-btn {
+    width: 100%; /* Full-width buttons for mobile */
+    padding: 0.75rem 1rem;
+  }
+
+  .banner-cta {
+    gap: 0.5rem;
+    flex-direction: column; /* Stack buttons vertically */
+  }
+
+  .main-image {
+    border-radius: 5px; /* Smaller radius */
+  }
+
+  .accent-circle {
+    display: none; /* Hide decorative circle on very small screens */
+  }
+}
+
