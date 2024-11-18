@@ -2,38 +2,41 @@ const wishListModel = require("../models/wishList.Model");
 const productModel = require("../models/product.Model");
 const userModel = require("../models/user");
 const { checkIdExists } = require("../utils/utilites");
+const { tryCatch, AppError } = require("../utils/tryCatch");
 
 // read all wishlists
-exports.getAllWishLists = async (req, res) => {
-  try {
-    const wishLists = await wishListModel.find().populate(products);
-    res.status(200).json(wishLists);
-  } catch (error) {
-    res.status(404).json({ message: error.message });
-  }
-};
+exports.getAllWishLists = tryCatch(async (req, res) => {
+  const wishLists = await wishListModel.find().populate("products");
+  res.status(200).json(wishLists);
+});
 
 // read wishlist by ID
-exports.getWishListById = async (req, res) => {
-  try {
-    const wishList = await wishListModel.findById(req.params.id).populate(products);
-    res.status(200).json(wishList);
-  } catch (error) {
-    res.status(404).json({ message: error.message });
+exports.getWishListById = tryCatch(async (req, res) => {
+  const wishList = await wishListModel
+    .findById(req.params.id)
+    .populate(products);
+
+  if (!wishList) {
+    return res.status(404).json({ message: "Wishlist not found" });
   }
-};
+
+  res.status(200).json(wishList);
+});
 
 // read wishlist by user
-exports.getWishListByUser = async (req, res) => {
-  try {
-    const wishList = await wishListModel.find({ user: req.params.id }).populate(products);
-    res.status(200).json(wishList);
-  } catch (error) {
-    res.status(404).json({ message: error.message });
-  }
-};
+exports.getWishListByUser = tryCatch(async (req, res) => {
+  const wishList = await wishListModel
+    .find({ user: req.params.id })
+    .populate("products");
+  res.status(200).json(wishList);
+});
 
-// create wishlist
+/**
+ * Create a wishlist
+ * @param {Object} req - The request body
+ * @returns {Object} - The created wishlist
+ *
+ */
 const createWishList = async (req) => {
   console.log("Creating wishlist", 433333433);
 
@@ -55,42 +58,49 @@ const createWishList = async (req) => {
   return wishList;
 };
 
-//add product to wishlist
-exports.addProductToWishList = async (req, res) => {
-  // check if wishlist exists if not create one
+/**
+ * Add a product to a wishlist
+ * @param {*} req
+ * @param {*} res
+ * @returns {Object} - The updated wishlist
+ */
+
+exports.addProductToWishList = tryCatch(async (req, res) => {
   const { userId, productId } = req.body;
-  try {
-    const wishList = await wishListModel.findOne({ user: userId });
-    if (!wishList) {
-      const newWishList = await createWishList(req);
-      res.status(201).json(newWishList);
-    } else {
-      await checkIdExists(productId, productModel);
-      wishList.products.push({ product: productId });
-      await wishList.save();
-      res.status(200).json(wishList);
-    }
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
-};
 
-// remove product from wishlist
-exports.removeProductFromWishList = async (req, res) => {
-  try {
-    const wishList = await wishListModel.findOne({ user: req.body.userId });
-    if (!wishList) {
-      res.status(404).json({ message: "Wishlist not found" });
-    } else {
-      // Use .equals to correctly compare ObjectId fields
-      wishList.products = wishList.products.filter((product) => {
-        return !product.product.equals(req.body.productId);
-      });
+  // Check if wishlist exists, if not, create one
+  const wishList = await wishListModel.findOne({ user: userId });
 
-      await wishList.save();
-      res.status(200).json(wishList);
-    }
-  } catch (error) {
-    res.status(400).json({ message: error.message });
+  if (!wishList) {
+    const newWishList = await createWishList(req);
+    return res.status(201).json(newWishList); // Respond after creating a new wishlist
+  } else {
+    await checkIdExists(productId, productModel);
+    wishList.products.push({ product: productId });
+    await wishList.save();
+    return res.status(200).json(wishList);
   }
-};
+});
+
+/**
+ * Remove a product from a wishlist
+ * @param {Object} req - The request body
+ * @param {Object} res - The response body
+ * @returns {Object} - The updated wishlist
+ *
+ */
+
+exports.removeProductFromWishList = tryCatch(async (req, res) => {
+  const wishList = await wishListModel.findOne({ user: req.body.userId });
+  if (!wishList) {
+    res.status(404).json({ message: "Wishlist not found" });
+  } else {
+    // Use .equals to correctly compare ObjectId fields
+    wishList.products = wishList.products.filter((product) => {
+      return !product.product.equals(req.body.productId);
+    });
+
+    await wishList.save();
+    res.status(200).json(wishList);
+  }
+});

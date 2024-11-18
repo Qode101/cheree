@@ -8,7 +8,10 @@ const wishListRouter = require("./routes/wishListRoutes");
 const { logResponseDetails } = require("./middleware/logMiddleware");
 const mongoose = require("mongoose");
 const fileUpload = require("express-fileupload");
-const cors = require("cors");
+const { handleErrors, handle404 } = require("./middleware/errorHandling");
+const { AppError } = require("./utils/tryCatch");
+
+//const cors = require("cors");
 
 dotenv.config();
 console.log(process.env.MONGODB_URI, process.env.PORT, "devs");
@@ -22,7 +25,8 @@ const app = express();
 app.use(express.json());
 app.use(fileUpload());
 app.use(logResponseDetails);
-app.use(cors());
+
+//app.use(cors());
 
 const api = require("./routes/api");
 
@@ -37,6 +41,10 @@ app.use("/products", productRouter);
 app.use("/category", categoryRouter);
 app.use("/purchase", purchaseRouter);
 app.use("/wishlist", wishListRouter);
+
+// handle 404
+app.use(handle404);
+app.use(handleErrors);
 
 // Start server
 const PORT = process.env.PORT || 5000;

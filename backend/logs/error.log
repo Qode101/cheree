@@ -22,3 +22,4 @@
 [2024-11-12 04:48:11.364 PM] error: POST /products/createProduct 500, User ID: anonymous, IP Address: ::ffff:127.0.0.1
 [2024-11-12 04:48:52.366 PM] error: POST /products/createProduct 500, User ID: anonymous, IP Address: ::ffff:127.0.0.1
 [2024-11-12 04:53:39.932 PM] error: POST /products/createProduct 500, User ID: anonymous, IP Address: ::ffff:127.0.0.1
+[2024-11-13 12:49:50.844 PM] error: POST /api/sign-up 500, User ID: anonymous, IP Address: ::ffff:127.0.0.1
