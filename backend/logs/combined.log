@@ -57,3 +57,7 @@
 [2024-11-12 05:19:22.973 PM] info: GET /products//findProductByName/12e 200, User ID: anonymous, IP Address: ::ffff:127.0.0.1
 [2024-11-12 05:51:16.085 PM] info: POST /category/create 201, User ID: anonymous, IP Address: ::ffff:127.0.0.1
 [2024-11-12 05:52:36.120 PM] info: GET /category/viewAll 200, User ID: anonymous, IP Address: ::ffff:127.0.0.1
+[2024-11-18 12:27:28.758 PM] info: POST /api/sign-up 200, User ID: anonymous, IP Address: ::1
+[2024-11-18 12:38:19.612 PM] info: POST /api/login 200, User ID: anonymous, IP Address: ::1
+[2024-11-18 01:55:13.117 PM] info: POST /api/sign-up 200, User ID: anonymous, IP Address: ::ffff:127.0.0.1
+[2024-11-18 01:56:12.391 PM] info: POST /api/login 200, User ID: anonymous, IP Address: ::1
