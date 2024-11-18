@@ -15,6 +15,10 @@ const session = require("express-session");
 const passport = require("passport");
 require("./config/passport");
 const authRoutes = require("./routes/authRoutes");
+const { handleErrors, handle404 } = require("./middleware/errorHandling");
+const { AppError } = require("./utils/tryCatch");
+
+//const cors = require("cors");
 
 dotenv.config();
 console.log(process.env.MONGODB_URI, process.env.PORT, "devs");
@@ -28,7 +32,8 @@ const app = express();
 app.use(express.json());
 app.use(fileUpload());
 app.use(logResponseDetails);
-app.use(cors());
+
+//app.use(cors());
 
 // Google Auth Middleware
 app.use(
@@ -54,6 +59,10 @@ app.use("/purchase", purchaseRouter);
 app.use("/wishlist", wishListRouter);
 app.use("/mpesa", mpesaRouter);
 app.use("/orders", purchaseRouter);
+
+// handle 404
+app.use(handle404);
+app.use(handleErrors);
 
 // Start server
 const PORT = process.env.PORT || 5000;
