@@ -121,6 +121,7 @@
 .social-icons {
   display: flex;
   gap: 1rem;
+  margin-right: 2rem;
   justify-content: center; /* Center the icons within their container */
 }
 
@@ -235,3 +236,4 @@
     justify-content: center;
   }
 } 
+
