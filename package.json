@@ -16,6 +16,8 @@
     "@angular/compiler-cli": "^18.2.11",
     "@types/jasmine": "^5.1.4",
     "@types/mocha": "^10.0.9",
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0",
     "typescript": "^5.5.2"
   }
 }
