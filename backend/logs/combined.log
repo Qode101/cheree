@@ -61,3 +61,17 @@
 [2024-11-18 12:38:19.612 PM] info: POST /api/login 200, User ID: anonymous, IP Address: ::1
 [2024-11-18 01:55:13.117 PM] info: POST /api/sign-up 200, User ID: anonymous, IP Address: ::ffff:127.0.0.1
 [2024-11-18 01:56:12.391 PM] info: POST /api/login 200, User ID: anonymous, IP Address: ::1
+[2024-11-18 02:07:33.765 PM] warn: POST /api/login 401, User ID: anonymous, IP Address: ::1
+[2024-11-18 02:10:26.381 PM] info: POST /api/sign-up 200, User ID: anonymous, IP Address: ::1
+[2024-11-18 02:10:52.954 PM] info: POST /api/login 200, User ID: anonymous, IP Address: ::1
+[2024-11-19 02:07:27.116 PM] info: GET / 200, User ID: anonymous, IP Address: ::1
+[2024-11-19 02:07:38.878 PM] warn: GET /favicon.ico 404, User ID: anonymous, IP Address: ::1
+[2024-11-19 02:14:59.888 PM] warn: GET /mpesa/access_token 404, User ID: anonymous, IP Address: ::1
+[2024-11-19 02:42:03.856 PM] info: GET /mpesa/access_token 200, User ID: anonymous, IP Address: ::1
+[2024-11-19 02:44:37.229 PM] error: POST /mpesa/stkpush 500, User ID: anonymous, IP Address: ::1
+[2024-11-19 02:48:05.583 PM] error: POST /mpesa/stkpush 500, User ID: anonymous, IP Address: ::1
+[2024-11-19 02:57:54.363 PM] error: POST /mpesa/stkpush 500, User ID: anonymous, IP Address: ::1
+[2024-11-19 03:00:01.264 PM] info: POST /mpesa/stkpush 200, User ID: anonymous, IP Address: ::1
+[2024-11-19 03:06:44.132 PM] warn: GET /mpesa/registerurl 404, User ID: anonymous, IP Address: ::1
+[2024-11-19 03:22:15.288 PM] error: GET /mpesa/registerurl 500, User ID: anonymous, IP Address: ::ffff:127.0.0.1
+[2024-11-19 03:26:19.556 PM] error: GET /mpesa/registerurl 500, User ID: anonymous, IP Address: ::1
