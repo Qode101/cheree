@@ -1,89 +1,170 @@
+/* src/app/auth/sign-up/sign-up.component.css */
+
 .auth-container {
-    display: flex;
-    height: 100vh;
-  }
+  display: flex;
+  font-family: Arial, Helvetica, sans-serif;
+  height: 90vh;
+  width: 1500px;
+  margin: 50px auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(255, 104, 104, 0.1);
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
 .auth-image {
-    flex: 0.6;
-    background-color: #f3f3f3;
-    /*background-image: url(../../../assets/img2.jpg);*/
-    margin: 50Px;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f5f5;
 }
+
+.auth-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
 .auth-form {
-    flex: 1;
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    max-width: 400px;
-    margin: auto;
-    font-family: sans-serif;
+  width: 50%;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
+
 .auth-form h2 {
-    margin-bottom: 1rem;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
 }
+
 .auth-form form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
+
 .auth-form label {
-    margin-top: 1rem;
+  font-size: 14px;
+  color: #666;
+  margin-top: 15px;
+  margin-bottom: 5px;
 }
+
 .auth-form input {
-    padding: 0.5rem;
-    margin-top: 0.5rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s ease;
 }
-.auth-form button {
-    margin-top: 1.5rem;
-    padding: 0.75rem;
-    background-color: #000000;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+
+.auth-form input:focus {
+  border-color: #000000;
 }
+
+.auth-form button[type="submit"] {
+  margin-top: 20px;
+  padding: 12px;
+  font-size: 16px;
+  color: #ffffff;
+  background-color: #000000;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.auth-form button[type="submit"]:hover {
+  background-color: #000000;
+  color: #fff;
+}
+
 .divider {
-    margin: 1.5rem 0;
-    font-weight: bold;
-    text-align: center;
-    position: relative;
+  margin: 20px 0;
+  text-align: center;
+  color: #999;
+  font-size: 14px;
+  position: relative;
 }
-.divider::before, .divider::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    width: 40%;
-    height: 1px;
-    background: #ddd;
+
+.divider:before,
+.divider:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  height: 1px;
+  background-color: #ddd;
 }
-.divider::before {
-    left: 0;
+
+.divider:before {
+  left: 0;
 }
-.divider::after {
-    right: 0;
+
+.divider:after {
+  right: 0;
 }
+
 .social-button {
-    margin-top: 1rem;
-    padding: 0.75rem;
-    width: 100%;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: medium;
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
+
 .social-button.google {
-    background-color: #db4437;
-    color: white;
+  background-color: #ffffff;
+  color: #000000;
+  border: 2px solid #000000;
 }
+
 .social-button.facebook {
-    background-color: #4267b2;
-    color: white;
+  background-color: #ffffff;
+  color: #000000;
+  border: 2px solid #000000;
 }
+
+.social-button.google:hover {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.social-button.facebook:hover {
+  background-color: #000000;
+  color: #ffffff;
+}
+
 .link {
-    color: #007bff;
-    text-decoration: none;
-    cursor: pointer;
-}  
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+/* Responsive design for mobile view */
+@media (max-width: 768px) {
+  .auth-container {
+    flex-direction: column;
+  }
+
+  .auth-image, .auth-form {
+    width: 100%;
+  }
+
+  .auth-form {
+    padding: 20px;
+  }
+}
+ 
