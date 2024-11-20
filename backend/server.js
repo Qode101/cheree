@@ -1,10 +1,11 @@
-// server.js
+// server
 const express = require("express");
 const dotenv = require("dotenv");
 const productRouter = require("./routes/productRoutes");
 const categoryRouter = require("./routes/categoryRoutes");
 const purchaseRouter = require("./routes/purchaseRoutes");
 const wishListRouter = require("./routes/wishListRoutes");
+const mpesaRouter = require("./routes/mpesaRoutes");
 const { logResponseDetails } = require("./middleware/logMiddleware");
 const mongoose = require("mongoose");
 const fileUpload = require("express-fileupload");
@@ -30,7 +31,6 @@ app.use(logResponseDetails);
 
 const api = require("./routes/api");
 
-// Example route
 app.get("/", (req, res) => {
   res.send("cheree is online!");
 });
@@ -41,6 +41,8 @@ app.use("/products", productRouter);
 app.use("/category", categoryRouter);
 app.use("/purchase", purchaseRouter);
 app.use("/wishlist", wishListRouter);
+app.use("/mpesa", mpesaRouter);
+app.use("/orders", purchaseRouter);
 
 // handle 404
 app.use(handle404);

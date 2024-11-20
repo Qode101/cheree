@@ -64,7 +64,7 @@
 .mega-dropdown {
   position: absolute;
   top: 100%;
-  left: 50%;
+  left: -20%;
   transform: translateX(-50%);
   background: white;
   min-width: 800px;
