@@ -10,6 +10,7 @@ const { logResponseDetails } = require("./middleware/logMiddleware");
 const mongoose = require("mongoose");
 const fileUpload = require("express-fileupload");
 const cors = require("cors");
+const paymentRouter = require("./routes/paymentRoutes");
 
 dotenv.config();
 console.log(process.env.MONGODB_URI, process.env.PORT, "devs");
@@ -39,6 +40,7 @@ app.use("/purchase", purchaseRouter);
 app.use("/wishlist", wishListRouter);
 app.use("/mpesa", mpesaRouter);
 app.use("/orders", purchaseRouter);
+app.use("/payments", paymentRouter);
 
 // Start server
 const PORT = process.env.PORT || 5000;
