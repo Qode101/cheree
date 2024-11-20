@@ -23,7 +23,7 @@ mongoose
 
 const app = express();
 app.use(express.json());
-app.use(fileUpload());
+app.use(fileUpload({ useTempFiles: true }));
 app.use(logResponseDetails);
 
 //app.use(cors());

@@ -2,54 +2,45 @@ const productModel = require("../models/product.Model");
 const categoryModel = require("../models/category.Model");
 const { uploadOptimizeImage } = require("../utils/upload");
 const { checkIdExists } = require("../utils/utilites");
-
-exports.createP = async (req, res) => {
-  console.log(req.body, 434343, req.files);
-  res.status(200).json({ message: "Products created" });
-};
+const { tryCatch, AppError } = require("../utils/tryCatch");
 
 // Create a new product
-exports.createProduct = async (req, res) => {
+exports.createProduct = tryCatch(async (req, res) => {
   let { category, ...product } = req.body;
+
   if (category) {
     await checkIdExists(category, categoryModel);
   }
-  //console.log(434343, req.files);
-  try {
-    // Upload the image to Cloudinary if an image file exists in the request
-    if (req.files) {
-      console.log(23232);
 
-      let imagePath =
-        "https://res.cloudinary.com/demo/image/upload/v1651585298/happy_people.jpg";
-      const optimizeUrl = await uploadOptimizeImage(imagePath);
+  // Upload the image to Cloudinary if an image file exists in the request
+  if (req.files) {
+    const name = product.name.trim();
+    const imagePath = req.files.image.tempFilePath;
+    const optimizeUrl = await uploadOptimizeImage(imagePath, name);
 
-      product = {
-        ...product,
-        category,
-        imageUrl: optimizeUrl,
-      };
-    }
-
-    const newProduct = await productModel.create(product);
-    res.status(201).json(newProduct);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+    product = {
+      ...product,
+      category,
+      imageUrl: optimizeUrl,
+    };
   }
-};
+
+  const newProduct = await productModel.create(product);
+  res.status(201).json(newProduct);
+});
 
 //read a product
 exports.getProduct = async (req, res) => {
   try {
     const product = await productModel.findById(req.params.id);
     res.status(200).json(product);
-  } catch (error) {
-    res.status(404).json({ message: error.message });
+  } catch (err) {
+    res.status(404).json({ message: "Product not found" });
   }
 };
 
 //update a product, if stockUpdate is passed in the body, it will update the stock
-exports.updateProduct = async (req, res) => {
+exports.updateProduct = tryCatch(async (req, res) => {
   let { category, ...updateFields } = req.body;
   if (category) {
     await checkIdExists(category, categoryModel);
@@ -68,8 +59,7 @@ exports.updateProduct = async (req, res) => {
   }
 
   if (req.files) {
-    let imagePath =
-      "https://res.cloudinary.com/demo/image/upload/v1651585298/happy_people.jpg";
+    let imagePath = req.files.image.tempFilePath;
     const optimizeUrl = await uploadOptimizeImage(imagePath);
 
     updateFields = {
@@ -78,84 +68,63 @@ exports.updateProduct = async (req, res) => {
     };
   }
 
-  try {
-    const updatedProduct = await productModel.findByIdAndUpdate(
-      req.params.id,
-      updateFields,
-      { new: true }
-    );
+  const updatedProduct = await productModel.findByIdAndUpdate(
+    req.params.id,
+    updateFields,
+    { new: true }
+  );
 
-    if (!updatedProduct) {
-      return res.status(404).json({ message: "Product not found" });
-    }
-
-    res.status(200).json(updatedProduct);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+  if (!updatedProduct) {
+    return res.status(404).json({ message: "Product not found" });
   }
-};
+  res.status(200).json(updatedProduct);
+});
 
 //delete a product
 exports.deleteProduct = async (req, res) => {
   try {
+    const id = await checkIdExists(req.params.id, productModel);
+    console.log(id, 3333);
     await productModel.findByIdAndDelete(req.params.id);
     res.status(200).json({ message: "Product has been deleted" });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+  } catch (err) {
+    res.status(404).json({ message: "Product not found" });
   }
 };
 
 //find a product by name
-exports.findProductByName = async (req, res) => {
-  try {
-    const product = await productModel.find().byName(req.params.name);
-    if (!product) {
-      return res.status(404).json({ message: "Product not found" });
-    }
-    res.status(200).json(product);
-  } catch (error) {
-    res.status(404).json({ message: error.message });
+exports.findProductByName = tryCatch(async (req, res) => {
+  const product = await productModel.find().byName(req.params.name);
+  if (!product) {
+    return res.status(404).json({ message: "Product not found" });
   }
-};
+  res.status(200).json(product);
+});
 
 //find a product by category
-exports.findProductByCategory = async (req, res) => {
+exports.findProductByCategory = tryCatch(async (req, res) => {
   const category = await categoryModel.find({ name: req.params.category });
 
   if (!category) {
     return res.status(404).json({ message: "Category not found" });
   }
-
-  try {
-    const product = await productModel.find({ category: category._id });
-    res.status(200).json(product);
-  } catch (error) {
-    res.status(404).json({ message: error.message });
-  }
-};
+  const product = await productModel.find({ category: category._id });
+  res.status(200).json(product);
+});
 
 //find a product by price
-exports.findProductByPrice = async (req, res) => {
+exports.findProductByPrice = tryCatch(async (req, res) => {
   const price = parseFloat(req.params.price);
 
   if (isNaN(price)) {
     return res.status(400).json({ message: "Invalid price" });
   }
-
-  try {
-    const product = await productModel.find({ price: req.params.price });
-    res.status(200).json(product);
-  } catch (error) {
-    res.status(404).json({ message: error.message });
-  }
-};
+  const product = await productModel.find({ price: req.params.price });
+  res.status(200).json(product);
+});
 
 //view all products in the database
-exports.getAllProducts = async (req, res) => {
-  try {
-    const products = await productModel.find();
-    res.status(200).json(products);
-  } catch (error) {
-    res.status(404).json({ message: error.message });
-  }
-};
+exports.getAllProducts = tryCatch(async (req, res) => {
+  const products = await productModel.find();
+  res.status(200).json(products);
+});

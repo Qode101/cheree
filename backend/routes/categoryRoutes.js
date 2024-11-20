@@ -10,7 +10,7 @@ const {
   createCategory,
 } = require("../controllers/categoryController");
 
-router.get("/viewAll", viewAllCategories);
+router.get("/all", viewAllCategories);
 router.get("/findByName/:name", findCategoryByName);
 router.delete("/delete/:id", deleteCategory);
 router.put("/update/:id", updateCategory);
