@@ -1,3 +1,65 @@
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
+const createPaymentIntent = async (amount, currency = 'usd', metadata = {}) => {
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: amount * 100, 
+      currency,
+      metadata,
+      automatic_payment_methods: {
+        enabled: true,
+      },
+    });
+    return paymentIntent;
+  } catch (error) {
+    throw new Error(`Payment intent creation failed: ${error.message}`);
+  }
+};
+
+const confirmPayment = async (paymentIntentId) => {
+  try {
+    const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
+    return paymentIntent;
+  } catch (error) {
+    throw new Error(`Payment confirmation failed: ${error.message}`);
+  }
+};
+
+const createCustomer = async (email, name, metadata = {}) => {
+  try {
+    const customer = await stripe.customers.create({
+      email,
+      name,
+      metadata
+    });
+    return customer;
+  } catch (error) {
+    throw new Error(`Customer creation failed: ${error.message}`);
+  }
+};
+
+const attachPaymentMethod = async (customerId, paymentMethodId) => {
+  try {
+    const paymentMethod = await stripe.paymentMethods.attach(paymentMethodId, {
+      customer: customerId,
+    });
+    return paymentMethod;
+  } catch (error) {
+    throw new Error(`Payment method attachment failed: ${error.message}`);
+  }
+};
+
+module.exports = {
+  createPaymentIntent,
+  confirmPayment,
+  createCustomer,
+  attachPaymentMethod
+};
+
+
+
+
+
 // How this is gonna work:
 // 1. create a payment intent on the (my) server.
 
