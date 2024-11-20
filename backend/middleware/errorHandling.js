@@ -5,7 +5,10 @@ const handleErrors = (err, req, res, next) => {
 };
 
 const handle404 = (req, res, next) => {
-  const error = new AppError(`Endpoint ${req.originalUrl} doesn't exist`, 404);
+  const error = new AppError(
+    `Endpoint ${req.method} ${req.originalUrl} doesn't exist`,
+    404
+  );
   next(error);
 };
 
