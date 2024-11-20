@@ -10,6 +10,7 @@ const {
   findProductByName,
   findProductByPrice,
   deleteProduct,
+  createP,
 } = require("../controllers/productController");
 
 router.get("/all", getAllProducts);
