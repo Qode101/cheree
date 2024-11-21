@@ -15,7 +15,6 @@ const { AppError } = require("./utils/tryCatch");
 const cors = require("cors");
 const paymentRouter = require("./routes/paymentRoutes");
 
-
 dotenv.config();
 console.log(process.env.MONGODB_URI, process.env.PORT, "devs");
 
@@ -29,7 +28,7 @@ app.use(express.json());
 app.use(fileUpload({ useTempFiles: true }));
 app.use(logResponseDetails);
 
-//app.use(cors());
+app.use(cors());
 
 const api = require("./routes/api");
 
