@@ -18,7 +18,7 @@ const productSchema = new Schema({
       message: "Invalid URL",
     },
   },
-  date: { type: Date, default: Date.now },
+  createdAt: { type: Date, default: Date.now },
 });
 
 // query helper to find product by name
