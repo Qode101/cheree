@@ -7,7 +7,7 @@ const Purchase = require('./mocks/purchaseModel');
 
 describe('User Flow', () => {
   beforeAll(async () => {
-    // Connect to a test database
+    // Connect to test database
     await mongoose.connect('mongodb://localhost:27017/testdb', {
       useNewUrlParser: true,
       useUnifiedTopology: true

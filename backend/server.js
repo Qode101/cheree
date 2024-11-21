@@ -12,7 +12,9 @@ const fileUpload = require("express-fileupload");
 const { handleErrors, handle404 } = require("./middleware/errorHandling");
 const { AppError } = require("./utils/tryCatch");
 
-//const cors = require("cors");
+const cors = require("cors");
+const paymentRouter = require("./routes/paymentRoutes");
+
 
 dotenv.config();
 console.log(process.env.MONGODB_URI, process.env.PORT, "devs");
@@ -43,6 +45,7 @@ app.use("/purchase", purchaseRouter);
 app.use("/wishlist", wishListRouter);
 app.use("/mpesa", mpesaRouter);
 app.use("/orders", purchaseRouter);
+app.use("/payments", paymentRouter);
 
 // handle 404
 app.use(handle404);
