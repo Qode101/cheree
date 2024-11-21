@@ -8,5 +8,5 @@ describe('Purchase API', () => {
     expect(response.body).toBeInstanceOf(Array);
   });
 
-  //more tests for other endpoints go here
+  //more tests for other endpoints will go here
 }); 
