@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
+const { paginate } = require("../middleware/paginationMiddle");
+const productModel = require("../models/product.Model");
 
 const {
   createProduct,
   updateProduct,
-  getAllProducts,
   getProduct,
   findProductByCategory,
   findProductByName,
@@ -12,7 +13,7 @@ const {
   deleteProduct,
 } = require("../controllers/productController");
 
-router.get("/all", getAllProducts);
+router.get("/all", paginate(productModel));
 router.get("/findByName/:name", findProductByName);
 router.get("/findByCategory/:category", findProductByCategory);
 router.get("/findByPrice/:price", findProductByPrice);

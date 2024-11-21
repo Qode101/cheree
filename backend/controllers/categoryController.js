@@ -1,27 +1,23 @@
 const categoryModel = require("../models/category.Model");
 const { uploadOptimizeImage } = require("../utils/upload");
+const { tryCatch, AppError } = require("../utils/tryCatch");
 
 // Create a new category
-exports.createCategory = async (req, res) => {
+exports.createCategory = tryCatch(async (req, res) => {
   let category = req.body;
-  try {
-    // Upload the image to Cloudinary if an image file exists in the request
-    if (req.files) {
-      let imagePath =
-        "https://res.cloudinary.com/demo/image/upload/v1651585298/happy_people.jpg";
-      const optimizeUrl = await uploadOptimizeImage(imagePath);
+  // Upload the image to Cloudinary if an image file exists in the request
+  if (req.files) {
+    let imagePath = req.files.image.tempFilePath;
+    const optimizeUrl = await uploadOptimizeImage(imagePath);
 
-      category = {
-        ...category,
-        imageUrl: optimizeUrl,
-      };
-    }
-    const newCategory = await categoryModel.create(category);
-    res.status(201).json(newCategory);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+    category = {
+      ...category,
+      imageUrl: optimizeUrl,
+    };
   }
-};
+  const newCategory = await categoryModel.create(category);
+  res.status(201).json(newCategory);
+});
 
 // Read a category
 exports.getCategory = async (req, res) => {
@@ -29,40 +25,33 @@ exports.getCategory = async (req, res) => {
     const category = await categoryModel.findById(req.params.id);
     res.status(200).json(category);
   } catch (error) {
-    res.status(404).json({ message: error.message });
+    res.status(404).json({ message: "Product doenst exist" });
   }
 };
 
 // Update a category
-exports.updateCategory = async (req, res) => {
+exports.updateCategory = tryCatch(async (req, res) => {
   let updateFields = req.body;
 
-  try {
-    if (req.files) {
-      let imagePath =
-        "https://res.cloudinary.com/demo/image/upload/v1651585298/happy_people.jpg";
-      const optimizeUrl = await uploadOptimizeImage(imagePath);
-      updateFields = {
-        ...updateFields,
-        imageUrl: optimizeUrl,
-      };
-    }
-    const updatedCategory = await categoryModel.findByIdAndUpdate(
-      req.params.id,
-      updateFields,
-      { new: true },
-      (error, category) => {
-        if (error) {
-          res.status(500).json({ message: error.message });
-        } else {
-          res.status(200).json(category);
-        }
-      }
-    );
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+  if (req.files) {
+    let imagePath = req.files.image.tempFilePath;
+    const optimizeUrl = await uploadOptimizeImage(imagePath);
+    updateFields = {
+      ...updateFields,
+      imageUrl: optimizeUrl,
+    };
   }
-};
+  const updatedCategory = await categoryModel.findByIdAndUpdate(
+    req.params.id,
+    updateFields,
+    { new: true }
+  );
+  if (!updatedCategory) {
+    return res.status(404).json({ message: "Category not found" });
+  }
+
+  res.status(200).json(updatedCategory);
+});
 
 // Delete a category
 exports.deleteCategory = async (req, res) => {
@@ -76,12 +65,7 @@ exports.deleteCategory = async (req, res) => {
 
 // view all categories
 exports.viewAllCategories = async (req, res) => {
-  try {
-    const categories = await categoryModel.find();
-    res.status(200).json(categories);
-  } catch (error) {
-    res.status(404).json({ message: error.message });
-  }
+  return res.json(res.paginatedResults);
 };
 
 //find a category by name

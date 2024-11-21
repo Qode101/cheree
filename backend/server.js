@@ -9,8 +9,12 @@ const mpesaRouter = require("./routes/mpesaRoutes");
 const { logResponseDetails } = require("./middleware/logMiddleware");
 const mongoose = require("mongoose");
 const fileUpload = require("express-fileupload");
+const { handleErrors, handle404 } = require("./middleware/errorHandling");
+const { AppError } = require("./utils/tryCatch");
+
 const cors = require("cors");
 const paymentRouter = require("./routes/paymentRoutes");
+
 
 dotenv.config();
 console.log(process.env.MONGODB_URI, process.env.PORT, "devs");
@@ -22,9 +26,10 @@ mongoose
 
 const app = express();
 app.use(express.json());
-app.use(fileUpload());
+app.use(fileUpload({ useTempFiles: true }));
 app.use(logResponseDetails);
-app.use(cors());
+
+//app.use(cors());
 
 const api = require("./routes/api");
 
@@ -41,6 +46,10 @@ app.use("/wishlist", wishListRouter);
 app.use("/mpesa", mpesaRouter);
 app.use("/orders", purchaseRouter);
 app.use("/payments", paymentRouter);
+
+// handle 404
+app.use(handle404);
+app.use(handleErrors);
 
 // Start server
 const PORT = process.env.PORT || 5000;
