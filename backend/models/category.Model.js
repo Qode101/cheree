@@ -4,8 +4,16 @@ const { Schema } = mongoose;
 const categorySchema = new Schema({
   name: { type: String, required: true },
   description: { type: String },
-  date: { type: Date, default: Date.now },
-  imageUrl: { type: String },
+  createdAt: { type: Date, default: Date.now },
+  imageUrls: {
+    type: String,
+    validate: {
+      validator: function (url) {
+        return /^https?:\/\/.*$/.test(url);
+      },
+      message: "Invalid URL",
+    },
+  },
 });
 
 // query help to find catergory by name
