@@ -65,12 +65,7 @@ exports.deleteCategory = async (req, res) => {
 
 // view all categories
 exports.viewAllCategories = async (req, res) => {
-  try {
-    const categories = await categoryModel.find();
-    res.status(200).json(categories);
-  } catch (error) {
-    res.status(404).json({ message: error.message });
-  }
+  return res.json(res.paginatedResults);
 };
 
 //find a category by name

@@ -1,7 +1,7 @@
 const { AppError } = require("../utils/tryCatch");
 
 const handleErrors = (err, req, res, next) => {
-  res.status(err.statusCode || 500).send({ error: err.message });
+  res.status(err.statusCode || 400).send({ message: err.message });
 };
 
 const handle404 = (req, res, next) => {
