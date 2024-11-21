@@ -148,15 +148,16 @@ export class DashboardComponent implements OnInit {
   }
 
   fetchProducts(): void {
-    this.http.get<Product[]>('http://localhost:3000/api/products').subscribe(
+    this.http.get<Product[]>('http://localhost:5000/products/all').subscribe(
       (response) => {
-        this.products = response;
+        this.products = response;  // Directly assign the array of products
       },
       (error) => {
         console.error('Error fetching products:', error);
       }
     );
   }
+  
 
   setActiveItem(itemId: string): void {
     this.activeItem = itemId;

@@ -122,3 +122,9 @@ exports.findProductByPrice = tryCatch(async (req, res) => {
   const product = await productModel.find({ price: req.params.price });
   res.status(200).json(product);
 });
+
+//get all products
+exports.getAllProducts = tryCatch(async (req, res) => {
+  const products = await productModel.find();
+  res.status(200).json(products);
+});
