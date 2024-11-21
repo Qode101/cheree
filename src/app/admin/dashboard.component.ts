@@ -13,7 +13,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
-
 interface NavItem {
   id: string;
   label: string;
@@ -24,7 +23,7 @@ interface NavItem {
 interface Product {
   name: string;
   category: string;
-  image: string;
+  imageUrl: string;
   stock: number;
   price: number;
 }
@@ -87,7 +86,7 @@ export class DashboardComponent implements OnInit {
       name: 'John Smith',
       email: 'john.smith@example.com',
       phone: '+(254)71234567',
-      avatar: '',  // Avatar URL will be fetched dynamically
+      avatar: '', // Avatar URL will be fetched dynamically
       role: 'Administrator',
       status: 'active'
     },
@@ -112,38 +111,21 @@ export class DashboardComponent implements OnInit {
   ];
 
   userColumns = ['avatar', 'name', 'email', 'phone', 'role', 'status', 'actions'];
-
-  products: Product[] = [
-    {
-      name: 'Product A',
-      category: 'Electronics',
-      image: 'assets/img8.jpg',
-      stock: 8,
-      price: 299.99
-    },
-    {
-      name: 'Product B',
-      category: 'Accessories',
-      image: 'assets/img9.jpg',
-      stock: 15,
-      price: 149.99
-    }
-  ];
-
+  products: Product[] = [];
   orders: Order[] = [
     {
       id: 'ORD-2024-001',
       client: 'Acme Corporation',
       date: '2024-03-15',
       status: 'Processing',
-      amount: 1250.00
+      amount: 1250.0
     },
     {
       id: 'ORD-2024-002',
       client: 'TechStart Inc',
       date: '2024-03-14',
       status: 'Shipped',
-      amount: 850.00
+      amount: 850.0
     }
   ];
 
@@ -153,19 +135,30 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchAvatars();
+    this.fetchProducts();
   }
 
   fetchAvatars(): void {
     this.users.forEach((user, index) => {
-      this.http.get<any>('https://randomuser.me/api/').subscribe(response => {
+      this.http.get<any>('https://randomuser.me/api/').subscribe((response) => {
         const avatarUrl = response.results[0].picture.medium;
         this.users[index].avatar = avatarUrl;
       });
     });
   }
 
+  fetchProducts(): void {
+    this.http.get<Product[]>('http://localhost:3000/api/products').subscribe(
+      (response) => {
+        this.products = response;
+      },
+      (error) => {
+        console.error('Error fetching products:', error);
+      }
+    );
+  }
+
   setActiveItem(itemId: string): void {
     this.activeItem = itemId;
   }
 }
-

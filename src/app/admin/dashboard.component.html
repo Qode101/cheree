@@ -4,8 +4,7 @@
     <!-- Top Navigation -->
     <header class="top-nav">
       <div class="nav-content">
-        <div class="nav-actions">
-        </div>
+        <div class="nav-actions"></div>
       </div>
     </header>
 
@@ -18,8 +17,7 @@
         <li 
           *ngFor="let item of navItems" 
           [class.active]="activeItem === item.id"
-          (click)="setActiveItem(item.id)"
-        >
+          (click)="setActiveItem(item.id)">
           <mat-icon class="nav-icon">{{ item.icon }}</mat-icon>
           <span class="nav-label">{{ item.label }}</span>
           <span class="nav-indicator" *ngIf="item.hasIndicator"></span>
@@ -60,25 +58,26 @@
                 <mat-icon class="stat-icon">local_mall</mat-icon>
               </div>
               <div class="stat-content">
-                <h3>Most Sold Item</h3>
-                <p class="stat-value">Product A</p>
-                <div class="trend positive">
-                  <mat-icon>trending_up</mat-icon>
-                  <span>+20% vs last month</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="stat-card">
-              <div class="stat-icon-wrapper">
-                <mat-icon class="stat-icon">trending_up</mat-icon>
-              </div>
-              <div class="stat-content">
                 <h3>Website Traffic</h3>
                 <p class="stat-value">{{ websiteTraffic | number }}</p>
                 <div class="trend positive">
                   <mat-icon>trending_up</mat-icon>
                   <span>+10% vs last month</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- New Stat Card: Most Sold Item -->
+            <div class="stat-card">
+              <div class="stat-icon-wrapper">
+                <mat-icon class="stat-icon">local_mall</mat-icon>
+              </div>
+              <div class="stat-content">
+                <h3>Most Sold Item</h3>
+                <p class="stat-value">Product A</p>
+                <div class="trend positive">
+                  <mat-icon>trending_up</mat-icon>
+                  <span>+20% vs last month</span>
                 </div>
               </div>
             </div>
@@ -104,13 +103,13 @@
                 <mat-card-title>{{ product.name }}</mat-card-title>
                 <mat-card-subtitle>{{ product.category }}</mat-card-subtitle>
               </mat-card-header>
-              <img mat-card-image [src]="product.image" [alt]="product.name">
+              <img mat-card-image [src]="product.imageUrl" [alt]="product.name">
               <mat-card-content>
                 <p class="stock-info" [class.low-stock]="product.stock < 10">
                   <mat-icon>inventory_2</mat-icon>
                   {{ product.stock }} units remaining
                 </p>
-                <p class="price">${{ product.price }}</p>
+                <p class="price">${{ product.price | number:'1.2-2' }}</p>
               </mat-card-content>
               <mat-card-actions>
                 <button mat-button color="primary">Edit</button>
@@ -245,28 +244,26 @@
 
               <ng-container matColumnDef="amount">
                 <th mat-header-cell *matHeaderCellDef> Amount </th>
-                <td mat-cell *matCellDef="let order"> Kshs{{ order.amount | number:'1.2-2' }} </td>
+                <td mat-cell *matCellDef="let order"> ${{ order.amount | number:'1.2-2' }} </td>
               </ng-container>
 
               <ng-container matColumnDef="status">
                 <th mat-header-cell *matHeaderCellDef> Status </th>
                 <td mat-cell *matCellDef="let order">
-                  <span class="status-badge" [class]="order.status.toLowerCase()">
-                    {{ order.status }}
-                  </span>
+                  <span class="status-badge">{{ order.status }}</span>
                 </td>
               </ng-container>
 
               <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef> Actions </th>
                 <td mat-cell *matCellDef="let order">
-                  <button mat-icon-button [matMenuTriggerFor]="menu">
+                  <button mat-icon-button [matMenuTriggerFor]="orderMenu">
                     <mat-icon>more_vert</mat-icon>
                   </button>
-                  <mat-menu #menu="matMenu">
+                  <mat-menu #orderMenu="matMenu">
                     <button mat-menu-item>
                       <mat-icon>visibility</mat-icon>
-                      <span>View Details</span>
+                      <span>View</span>
                     </button>
                     <button mat-menu-item>
                       <mat-icon>edit</mat-icon>
