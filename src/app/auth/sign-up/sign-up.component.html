@@ -1,4 +1,3 @@
-
 <div class="auth-container">
     <div class="auth-image">
       <img src="assets/img5.jpg" alt="Sign Up Image">
@@ -21,7 +20,7 @@
         <button (click)="registerUser()" type="submit">Sign In</button>
       </form>
       <div class="divider">or</div>
-      <button class="social-button google">Sign In with Google</button>
+      <button class="social-button google" (click)="googleSignIn()">Sign In with Google</button>
       <button class="social-button facebook">Sign In with Facebook</button>
   
       <p>Already have an account? <a routerLink="/login" class="link">LOGIN</a></p>

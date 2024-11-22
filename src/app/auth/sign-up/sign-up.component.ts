@@ -29,4 +29,7 @@ export class SignUpComponent implements OnInit {
         err => console.log(err)
       );
   }
+  googleSignIn() {
+    this._auth.googleAuth();
+  }
 }
