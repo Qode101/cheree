@@ -21,6 +21,14 @@ const productSchema = new Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
+// how to change the availability of stock if the stock is 0 and below
+productSchema.pre("save", function (next) {
+  if (this.isNew || this.isModified("stock")) {
+    this.stockAvailbility = this.stock > 0;
+  }
+  next();
+});
+
 // query helper to find product by name
 productSchema.query.byName = function (name) {
   return this.where({ name: new RegExp(name, "i") });
