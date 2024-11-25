@@ -1,33 +1,100 @@
 <div class="auth-container">
+  <div class="auth-wrapper">
     <div class="auth-image">
       <img src="assets/img5.jpg" alt="Sign Up Image">
+      <div class="image-overlay"></div>
     </div>
-    <div class="auth-form">
-      <h2>Create an Account</h2>
-      <form>
-        <label for="name">First Name *</label>
-        <input [(ngModel)]="registerUserData.firstName" id="firstName" type="text" placeholder="Enter your first name" required>
+    
+    <div class="auth-form-container">
+      <div class="auth-form-wrapper">
+        <h2 class="auth-title">Create an Account</h2>
+        <p class="auth-subtitle">Fill in your details to get started</p>
+        
+        <form (ngSubmit)="registerUser()" class="auth-form">
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>First Name</mat-label>
+              <mat-icon matPrefix>person_outline</mat-icon>
+              <input matInput 
+                     [(ngModel)]="registerUserData.firstName" 
+                     name="firstName" 
+                     required>
+            </mat-form-field>
 
-        <label for="name">Last Name *</label>
-        <input [(ngModel)]="registerUserData.lastName" id="lastName" type="text" placeholder="Enter your last name" required>
-  
-        <label for="email">Email *</label>
-        <input [(ngModel)]="registerUserData.email" id="email" type="email" placeholder="Enter your email" required>
-  
-        <label for="password">Password *</label>
-        <input [(ngModel)]="registerUserData.password" id="password" type="password" placeholder="Enter your password" required>
-  
-        <button (click)="registerUser()" type="submit">Sign In</button>
-      </form>
-      <div class="divider">or</div>
-      <button class="social-button google" (click)="googleSignIn()">Sign In with Google</button>
-      <button class="social-button facebook">Sign In with Facebook</button>
-  
-      <p>Already have an account? <a routerLink="/login" class="link">LOGIN</a></p>
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Last Name</mat-label>
+              <mat-icon matPrefix>person_outline</mat-icon>
+              <input matInput 
+                     [(ngModel)]="registerUserData.lastName" 
+                     name="lastName" 
+                     required>
+            </mat-form-field>
+          </div>
 
-      <p class="terms-text">
-        By creating an account, you agree to the <a href="#">terms of use</a>.
-      </p>
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Email</mat-label>
+            <mat-icon matPrefix>email</mat-icon>
+            <input matInput 
+                   [(ngModel)]="registerUserData.email" 
+                   name="email" 
+                   type="email" 
+                   required>
+          </mat-form-field>
 
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Password</mat-label>
+            <mat-icon matPrefix>lock_outline</mat-icon>
+            <input matInput 
+                   [(ngModel)]="registerUserData.password" 
+                   name="password" 
+                   [type]="hidePassword ? 'password' : 'text'" 
+                   required>
+            <mat-icon matSuffix 
+                      (click)="hidePassword = !hidePassword"
+                      class="password-toggle">
+              {{hidePassword ? 'visibility_off' : 'visibility'}}
+            </mat-icon>
+          </mat-form-field>
+
+          <button mat-raised-button 
+                  color="primary" 
+                  class="submit-button" 
+                  type="submit">
+            Create Account
+          </button>
+        </form>
+
+        <div class="divider">
+          <span class="divider-line"></span>
+          <span class="divider-text">or continue with</span>
+          <span class="divider-line"></span>
+        </div>
+
+        <div class="social-buttons">
+          <button mat-stroked-button 
+                  class="social-button google" 
+                  (click)="googleSignIn()">
+            <i class="fab fa-google"></i>
+            Google
+          </button>
+
+          <button mat-stroked-button 
+                  class="social-button facebook">
+            <i class="fab fa-facebook-f"></i>
+            Facebook
+          </button>
+        </div>
+
+        <p class="signup-prompt">
+          Already have an account? 
+          <a routerLink="/login" class="signup-link">Login</a>
+        </p>
+
+        <p class="terms-text">
+          By creating an account, you agree to our
+          <a href="#" class="terms-link">Terms of Service</a>
+        </p>
+      </div>
     </div>
   </div>
+</div>

@@ -12,10 +12,9 @@ export const routes: Routes = [
   { path: 'admin', component: DashboardComponent },
   { path: 'product', component: ProductDetailComponent },
   { path: '', component: LandingComponent },
-  { path: 'sign-up', component: SignUpComponent },
+  { path: 'signup', component: SignUpComponent },
   { path: 'login', component: LoginComponent },
-  { path: '', redirectTo: '/sign-up', pathMatch: 'full' } // Redirect to sign-up by default
-
+  
 ];
 
 @NgModule({
