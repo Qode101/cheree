@@ -131,3 +131,16 @@
 [2024-11-13 03:14:46.842 PM] info: GET /wishlist/user/673476b11b5c93369d08ad4d 200, User ID: anonymous, IP Address: ::ffff:127.0.0.1
 [2024-11-13 03:15:00.391 PM] warn: POST /wishlist/add 400, User ID: anonymous, IP Address: ::ffff:127.0.0.1
 [2024-11-13 03:15:09.176 PM] info: POST /wishlist/add 200, User ID: anonymous, IP Address: ::ffff:127.0.0.1
+[2024-11-25 10:43:47.370 PM] warn: GET /auth/google 302, User ID: anonymous, IP Address: ::1
+[2024-11-25 10:52:47.678 PM] info: OPTIONS /api/sign-up 200, User ID: anonymous, IP Address: ::1
+[2024-11-25 10:53:33.120 PM] info: OPTIONS /api/login 200, User ID: anonymous, IP Address: ::1
+[2024-11-25 10:53:37.592 PM] warn: GET /auth/google 302, User ID: anonymous, IP Address: ::1
+[2024-11-25 10:56:31.323 PM] info: OPTIONS /api/sign-up 200, User ID: anonymous, IP Address: ::1
+[2024-11-25 11:12:26.715 PM] info: OPTIONS /api/sign-up 204, User ID: anonymous, IP Address: ::1
+[2024-11-25 11:12:27.963 PM] info: POST /api/sign-up 200, User ID: anonymous, IP Address: ::1
+[2024-11-25 11:12:41.505 PM] info: OPTIONS /api/sign-up 204, User ID: anonymous, IP Address: ::1
+[2024-11-25 11:12:42.096 PM] error: POST /api/sign-up 500, User ID: anonymous, IP Address: ::1
+[2024-11-25 11:18:02.620 PM] info: OPTIONS /api/sign-up 204, User ID: anonymous, IP Address: ::1
+[2024-11-25 11:18:02.939 PM] info: POST /api/sign-up 200, User ID: anonymous, IP Address: ::1
+[2024-11-25 11:18:37.862 PM] info: OPTIONS /api/sign-up 204, User ID: anonymous, IP Address: ::1
+[2024-11-25 11:18:38.237 PM] info: POST /api/sign-up 200, User ID: anonymous, IP Address: ::1

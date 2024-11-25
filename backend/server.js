@@ -18,8 +18,6 @@ const authRoutes = require("./routes/authRoutes");
 const { handleErrors, handle404 } = require("./middleware/errorHandling");
 const { AppError } = require("./utils/tryCatch");
 
-//const cors = require("cors");
-
 dotenv.config();
 console.log(process.env.MONGODB_URI, process.env.PORT, "devs");
 
@@ -33,10 +31,16 @@ app.use(express.json());
 app.use(fileUpload({ useTempFiles: true }));
 app.use(logResponseDetails);
 
-//app.use(cors());
+app.use(cors());
 
-// Google Auth Middleware
 app.use(
+  // alloq cors
+  cors({
+    origin: 'http://localhost:4200',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
+  }),
+  // Google Auth Middleware
   session({
     secret: "secret",
     resave: false,
