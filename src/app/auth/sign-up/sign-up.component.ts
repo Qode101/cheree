@@ -49,4 +49,7 @@ export class SignUpComponent implements OnInit {
   googleSignIn() {
     this._auth.googleAuth();
   }
+  facebookSignIn() {
+    this._auth.facebookAuth();
+  }
 }

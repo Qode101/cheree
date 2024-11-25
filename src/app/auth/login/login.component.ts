@@ -41,17 +41,19 @@ export class LoginComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
-          // Add your success logic here
         },
         error: (err) => {
           console.log(err);
-          // Add your error handling here
         }
       });
   }
 
   googleLogin() {
     this._auth.googleAuth();
+  }
+
+  facebookLogin() {
+    this._auth.facebookAuth();
   }
 
   navigateToSignup() {

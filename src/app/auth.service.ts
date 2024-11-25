@@ -10,6 +10,7 @@ export class AuthService {
   private _registerUrl = "http://localhost:5000/api/sign-up";
   private _loginUrl = "http://localhost:5000/api/login";
   private _googleAuthUrl = "http://localhost:5000/auth/google";
+  private _facebookAuthUrl = "http://localhost:5000/api/facebook";
 
   constructor(private http: HttpClient) { }
 
@@ -23,5 +24,8 @@ export class AuthService {
 
   googleAuth(): void {
     window.location.href = this._googleAuthUrl;
+  }
+  facebookAuth(): void {
+    window.location.href = this._facebookAuthUrl;
   }
 }
