@@ -1,6 +1,7 @@
 const axios = require("axios");
 const moment = require("moment");
 
+// Function to get access token
 const getAccessToken = async () => {
   const consumerKey = process.env.MPESA_CONSUMER_KEY;
   const consumerSecret = process.env.MPESA_CONSUMER_SECRET;
@@ -14,63 +15,33 @@ const getAccessToken = async () => {
     });
     return response.data.access_token;
   } catch (error) {
+    console.error("Access Token Error:", error.response?.data || error.message);
     throw new Error("Failed to obtain access token");
   }
 };
 
-const initiateSTKPush = async (phoneNumber, amount, accountReference) => {
+// Function to register URLs (C2B)
+const registerURL = async () => {
   const accessToken = await getAccessToken();
-  const url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest";
-  const timestamp = moment().format("YYYYMMDDHHmmss");
-  const password = Buffer.from(
-    `${process.env.BUSINESS_SHORTCODE}${process.env.MPESA_PASSKEY}${timestamp}`
-  ).toString("base64");
+  const url = "https://sandbox.safaricom.co.ke/mpesa/c2b/v1/registerurl";
 
   const requestBody = {
-    BusinessShortCode: process.env.BUSINESS_SHORTCODE,
-    Password: password,
-    Timestamp: timestamp,
-    TransactionType: "CustomerPayBillOnline",
-    Amount: amount,
-    PartyA: phoneNumber,
-    PartyB: process.env.BUSINESS_SHORTCODE,
-    PhoneNumber: phoneNumber,
-    CallBackURL: process.env.MPESA_CALLBACK_URL,
-    AccountReference: accountReference,
-    TransactionDesc: "Payment transaction",
+    ShortCode: process.env.BUSINESS_SHORTCODE,
+    ResponseType: "Completed",
+    ConfirmationURL: `${process.env.MPESA_CALLBACK_URL}/confirmation`,
+    ValidationURL: `${process.env.MPESA_CALLBACK_URL}/validation`,
   };
 
   try {
     const response = await axios.post(url, requestBody, {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
+    console.log("Register URL Response:", response.data);
     return response.data;
   } catch (error) {
-    throw new Error("Failed to initiate STK Push");
+    console.error("Register URL Error:", error.response?.data || error.message);
+    throw new Error("Failed to register URL");
   }
 };
 
-const registerURL = async () => {
-    const accessToken = await getAccessToken();
-    const url = "https://sandbox.safaricom.co.ke/mpesa/c2b/v1/registerurl";
-    const requestBody = {
-      Shortcode: process.env.BUSINESS_SHORTCODE,
-      LipaNaMpesaOnlineShortcode: process.env.BUSINESS_SHORTCODE,
-      LipaNaMpesaOnlineShortcodeKey: process.env.MPESA_PASSKEY,
-      ConfirmationURL: process.env.MPESA_CALLBACK_URL + "/confirmation",
-      ValidationURL: process.env.MPESA_CALLBACK_URL + "/validation",
-    };
-  
-    try {
-      const response = await axios.post(url, requestBody, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-      return response.data;
-    } catch (error) {
-      throw new Error("Failed to register URL");
-    }
-};
-
-module.exports = { getAccessToken, initiateSTKPush, registerURL };
+module.exports = { getAccessToken, registerURL };
