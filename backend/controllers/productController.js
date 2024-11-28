@@ -93,35 +93,65 @@ exports.deleteProduct = async (req, res) => {
 };
 
 //find a product by name
-exports.findProductByName = tryCatch(async (req, res) => {
-  const product = await productModel.find().byName(req.params.name);
+const findProductByName = async (name) => {
+  const product = await productModel.find().byName(name);
   if (!product) {
-    return res.status(404).json({ message: "Product not found" });
+    throw new AppError(`Product "${name} " doesnt exist`, 404);
   }
-  res.status(200).json(product);
-});
+  return product;
+};
 
 //find a product by category
-exports.findProductByCategory = tryCatch(async (req, res) => {
-  const category = await categoryModel.find({ name: req.params.category });
+const findProductByCategory = async (category) => {
+  const categoryFound = await categoryModel.find({ name: category });
 
-  if (!category) {
-    return res.status(404).json({ message: "Category not found" });
+  if (!categoryFound) {
+    throw new AppError(`Category "${category} " not found`, 404);
   }
-  const product = await productModel.find({ category: category._id });
-  res.status(200).json(product);
+  const product = await productModel.find({ category: categoryFound._id });
+  if (!product) {
+    throw new AppError(`Product "${name} " doesnt exist`, 404);
+  }
+  return product;
+};
+
+const findProductByPrice = async (price) => {
+  const actualPrice = parseFloat(price);
+
+  if (isNaN(actualPrice)) {
+    console.log("price", actualPrice);
+    throw new AppError(`Invalid price ${price}`, 400);
+  }
+  const product = await productModel.find({ price: actualPrice });
+  if (!product) {
+    throw new AppError(`Product "${actualPrice} " doesnt exist`, 404);
+  }
+  return product;
+};
+
+exports.find = tryCatch(async (req, res) => {
+  const queryHandlerMap = {
+    name: findProductByName,
+    category: findProductByCategory,
+    price: findProductByPrice,
+  };
+
+  const queryKey = Object.keys(req.query)[0];
+  const queryValue = req.query[queryKey];
+
+  if (!queryKey) {
+    return res.status(400).json({ message: "No query found" });
+  }
+
+  if (!queryHandlerMap[queryKey]) {
+    return res.status(400).json({ message: "Invalid query" });
+  }
+
+  const products = await queryHandlerMap[queryKey](queryValue);
+  res.status(200).json(products);
 });
 
 //find a product by price
-exports.findProductByPrice = tryCatch(async (req, res) => {
-  const price = parseFloat(req.params.price);
-
-  if (isNaN(price)) {
-    return res.status(400).json({ message: "Invalid price" });
-  }
-  const product = await productModel.find({ price: req.params.price });
-  res.status(200).json(product);
-});
 
 //get all products
 exports.getAllProducts = tryCatch(async (req, res) => {
