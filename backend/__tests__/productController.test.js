@@ -2,6 +2,7 @@ const controller = require("../controllers/productController");
 const productModel = require("../models/product.Model");
 const { uploadOptimizeImage } = require("../utils/upload");
 const { checkIdExists } = require("../utils/utilites");
+const { AppError } = require("../utils/tryCatch");
 
 jest.mock("../models/product.Model");
 jest.mock("../utils/upload");
@@ -239,5 +240,151 @@ describe("find product by price", () => {
     await controller.find(req, res, next);
 
     expect(next).toHaveBeenCalled();
+  });
+});
+
+// delete a product
+describe("delete a product", () => {
+  it("delete a product by id", async () => {
+    const req = {
+      params: {
+        id: "2333332",
+      },
+    };
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn().mockReturnThis(),
+    };
+    checkIdExists.mockResolvedValue(true);
+    productModel.findByIdAndDelete.mockResolvedValue({});
+
+    await controller.deleteProduct(req, res);
+
+    expect(productModel.findByIdAndDelete).toHaveBeenCalledWith(req.params.id);
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith({
+      message: "Product has been deleted",
+    });
+  });
+});
+
+// update a product
+describe("update a product", () => {
+  it("update a product category", async () => {
+    const req = {
+      params: {
+        id: "2333332",
+      },
+      body: {
+        category: "category1",
+      },
+    };
+    const updatedProduct = {
+      name: "product1",
+      price: 100,
+      description: "description",
+      stock: 10,
+      category: "category1",
+    };
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn().mockReturnThis(),
+    };
+    checkIdExists.mockResolvedValue(true);
+    productModel.findByIdAndUpdate.mockResolvedValue(updatedProduct);
+
+    await controller.updateProduct(req, res);
+
+    expect(productModel.findByIdAndUpdate).toHaveBeenCalledWith(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith(updatedProduct);
+  });
+  // update a product with stock update
+  it("update a product with stock update", async () => {
+    const req = {
+      params: {
+        id: "2333332",
+      },
+      body: {
+        stockUpdate: 10,
+      },
+    };
+    const updatedProduct = {
+      name: "product1",
+      price: 100,
+      description: "description",
+      stock: 20,
+    };
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn().mockReturnThis(),
+    };
+    checkIdExists.mockResolvedValue(true);
+    productModel.findByIdAndUpdate.mockResolvedValue(updatedProduct);
+
+    await controller.updateProduct(req, res);
+
+    expect(productModel.findByIdAndUpdate).toHaveBeenCalledWith(
+      req.params.id,
+      { $inc: { stock: 10 } }, // Only `$inc` is passed
+      { new: true }
+    );
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith(updatedProduct);
+  });
+
+  // update poduct image
+  it("update a product image", async () => {
+    const req = {
+      params: {
+        id: "2333332",
+      },
+      body: {
+        name: "product1",
+        price: 100,
+        description: "description",
+        stock: 10,
+      },
+      files: {
+        image: {
+          tempFilePath: "path",
+        },
+      },
+    };
+    const updatedProduct = {
+      name: "product1",
+      price: 100,
+      description: "description",
+      stock: 10,
+      imageUrl: "url",
+    };
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn().mockReturnThis(),
+    };
+    checkIdExists.mockResolvedValue(true);
+    uploadOptimizeImage.mockResolvedValue("url");
+    productModel.findByIdAndUpdate.mockResolvedValue(updatedProduct);
+
+    await controller.updateProduct(req, res);
+
+    expect(uploadOptimizeImage).toHaveBeenCalledWith(
+      "path",
+      req.body.name.trim()
+    );
+    expect(productModel.findByIdAndUpdate).toHaveBeenCalledWith(
+      req.params.id,
+      {
+        ...req.body,
+        imageUrl: "url",
+      },
+      { new: true }
+    );
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith(updatedProduct);
   });
 });

@@ -41,7 +41,9 @@ exports.getProduct = async (req, res) => {
 
 //update a product, if stockUpdate is passed in the body, it will update the stock
 exports.updateProduct = tryCatch(async (req, res) => {
-  let { category, ...updateFields } = req.body;
+  await checkIdExists(req.params.id, productModel);
+  console.log(230000000000000000000233332333333);
+  let { category, stockUpdate, ...updateFields } = req.body;
   if (category) {
     await checkIdExists(category, categoryModel);
     updateFields = {
@@ -51,9 +53,9 @@ exports.updateProduct = tryCatch(async (req, res) => {
   }
 
   // If stockUpdate is provided, increment the stock field
-  if (req.body.stockUpdate) {
+  if (stockUpdate) {
     updateFields = {
-      $inc: { stock: req.body.stockUpdate },
+      $inc: { stock: stockUpdate },
       ...updateFields,
     };
   }

@@ -3,7 +3,6 @@ const tryCatch = (controller) => {
     try {
       await controller(req, res, next);
     } catch (error) {
-      console.error(Object.keys(error));
       next(error);
     }
   };
