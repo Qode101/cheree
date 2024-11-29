@@ -23,9 +23,12 @@ exports.createCategory = tryCatch(async (req, res) => {
 exports.getCategory = async (req, res) => {
   try {
     const category = await categoryModel.findById(req.params.id);
+    if (!category) {
+      throw new AppError("Category not found", 404);
+    }
     res.status(200).json(category);
   } catch (error) {
-    res.status(404).json({ message: "Product doenst exist" });
+    res.status(404).json({ message: "Category not found" });
   }
 };
 

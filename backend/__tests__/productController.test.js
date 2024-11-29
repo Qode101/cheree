@@ -387,4 +387,50 @@ describe("update a product", () => {
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalledWith(updatedProduct);
   });
+
+  // update a product with invalid product id, should return 404 and error message checkIdExists show trigger the error
+  it("return 404 if product id is invalid", async () => {
+    const req = {
+      params: {
+        id: "2333332",
+      },
+      body: {
+        category: "category1",
+      },
+    };
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn().mockReturnThis(),
+    };
+    const next = jest.fn();
+    checkIdExists.mockRejectedValue(new AppError("Invalid product id", 404));
+
+    await controller.updateProduct(req, res, next);
+
+    expect(next).toHaveBeenCalled();
+    expect(next).toHaveBeenCalledWith(new AppError("Invalid product id", 404));
+  });
+
+  // update a product with invalid category id, should return 404 and error message checkIdExists show trigger the error
+  it("return 404 if category id is invalid", async () => {
+    const req = {
+      params: {
+        id: "2333332",
+      },
+      body: {
+        category: "category1",
+      },
+    };
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn().mockReturnThis(),
+    };
+    const next = jest.fn();
+    checkIdExists.mockRejectedValue(new AppError("Invalid category id", 404));
+
+    await controller.updateProduct(req, res, next);
+
+    expect(next).toHaveBeenCalled();
+    expect(next).toHaveBeenCalledWith(new AppError("Invalid category id", 404));
+  });
 });
