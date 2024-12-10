@@ -5,6 +5,7 @@ const productRouter = require("./routes/productRoutes");
 const categoryRouter = require("./routes/categoryRoutes");
 const purchaseRouter = require("./routes/purchaseRoutes");
 const wishListRouter = require("./routes/wishListRoutes");
+const shippingRouter = require("./routes/shippingRoutes");
 const mpesaRouter = require("./routes/mpesaRoutes");
 const { logResponseDetails } = require("./middleware/logMiddleware");
 const mongoose = require("mongoose");
@@ -45,6 +46,7 @@ app.use("/wishlist", wishListRouter);
 app.use("/mpesa", mpesaRouter);
 app.use("/orders", purchaseRouter);
 app.use("/payments", paymentRouter);
+app.use("/shipping", shippingRouter);
 
 // handle 404
 app.use(handle404);

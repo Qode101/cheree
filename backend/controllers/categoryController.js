@@ -1,20 +1,18 @@
 const categoryModel = require("../models/category.Model");
-const { uploadOptimizeImage } = require("../utils/upload");
+const { handleImageUpload } = require("../utils/upload");
 const { tryCatch, AppError } = require("../utils/tryCatch");
 
 // Create a new category
 exports.createCategory = tryCatch(async (req, res) => {
   let category = req.body;
   // Upload the image to Cloudinary if an image file exists in the request
-  if (req.files) {
-    let imagePath = req.files.image.tempFilePath;
-    const optimizeUrl = await uploadOptimizeImage(imagePath);
+  const imageUrl = await handleImageUpload(req.files, category.name);
+  console.log(imageUrl, 232222222);
+  category = {
+    ...category,
+    imageUrl,
+  };
 
-    category = {
-      ...category,
-      imageUrl: optimizeUrl,
-    };
-  }
   const newCategory = await categoryModel.create(category);
   res.status(201).json(newCategory);
 });
@@ -36,14 +34,9 @@ exports.getCategory = async (req, res) => {
 exports.updateCategory = tryCatch(async (req, res) => {
   let updateFields = req.body;
 
-  if (req.files) {
-    let imagePath = req.files.image.tempFilePath;
-    const optimizeUrl = await uploadOptimizeImage(imagePath);
-    updateFields = {
-      ...updateFields,
-      imageUrl: optimizeUrl,
-    };
-  }
+  const imageUpdateFields = await handleImageUpload(req.files);
+
+  updateFields = { ...updateFields, ...imageUpdateFields };
   const updatedCategory = await categoryModel.findByIdAndUpdate(
     req.params.id,
     updateFields,

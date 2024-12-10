@@ -1,31 +1,29 @@
 const productModel = require("../models/product.Model");
 const categoryModel = require("../models/category.Model");
-const { uploadOptimizeImage } = require("../utils/upload");
-const { checkIdExists } = require("../utils/utilites");
+const { handleImageUpload } = require("../utils/upload");
+const {
+  checkIdExists,
+  getProductUpdateFields,
+  updateProduct,
+} = require("../utils/utilites");
 const { tryCatch, AppError } = require("../utils/tryCatch");
 
 // Create a new product
 exports.createProduct = tryCatch(async (req, res) => {
   let { category, ...product } = req.body;
-
   if (category) {
     await checkIdExists(category, categoryModel);
   }
 
-  // Upload the image to Cloudinary if an image file exists in the request
-  if (req.files) {
-    const name = product.name.trim();
-    const imagePath = req.files.image.tempFilePath;
-    const optimizeUrl = await uploadOptimizeImage(imagePath, name);
+  const optimizeUrl = await handleImageUpload(req.files, product.name);
 
-    product = {
-      ...product,
-      category,
-      imageUrl: optimizeUrl,
-    };
-  }
+  const product_ = {
+    ...productData,
+    category,
+    imageUrl: optimizeUrl,
+  };
 
-  const newProduct = await productModel.create(product);
+  const newProduct = await productModel.create(product_);
   res.status(201).json(newProduct);
 });
 
@@ -41,43 +39,9 @@ exports.getProduct = async (req, res) => {
 
 //update a product, if stockUpdate is passed in the body, it will update the stock
 exports.updateProduct = tryCatch(async (req, res) => {
-  await checkIdExists(req.params.id, productModel);
-  let { category, stockUpdate, ...updateFields } = req.body;
-  if (category) {
-    await checkIdExists(category, categoryModel);
-    updateFields = {
-      ...updateFields,
-      category,
-    };
-  }
-
-  // If stockUpdate is provided, increment the stock field
-  if (stockUpdate) {
-    updateFields = {
-      $inc: { stock: stockUpdate },
-      ...updateFields,
-    };
-  }
-
-  if (req.files) {
-    let imagePath = req.files.image.tempFilePath;
-    const optimizeUrl = await uploadOptimizeImage(imagePath);
-
-    updateFields = {
-      ...updateFields,
-      imageUrl: optimizeUrl,
-    };
-  }
-
-  const updatedProduct = await productModel.findByIdAndUpdate(
-    req.params.id,
-    updateFields,
-    { new: true }
-  );
-
-  if (!updatedProduct) {
-    return res.status(404).json({ message: "Product not found" });
-  }
+  const product = await checkIdExists(req.params.id, productModel);
+  const updateFields = await getProductUpdateFields(req.body, req.files);
+  const updatedProduct = await updateProduct(product, updateFields);
   res.status(200).json(updatedProduct);
 });
 
@@ -85,7 +49,6 @@ exports.updateProduct = tryCatch(async (req, res) => {
 exports.deleteProduct = async (req, res) => {
   try {
     const id = await checkIdExists(req.params.id, productModel);
-    console.log(id, 3333);
     await productModel.findByIdAndDelete(req.params.id);
     res.status(200).json({ message: "Product has been deleted" });
   } catch (err) {
