@@ -49,4 +49,24 @@ describe('User Flow', () => {
     });
     expect(purchaseResponse.statusCode).toBe(201);
   });
+
+  describe('User Authentication', () => {
+    it('should log in a user', async () => {
+      // Assuming a user is already signed up
+      const loginResponse = await request(app).post('/api/login').send({
+        email: 'john@example.com',
+        password: 'password123'
+      });
+      expect(loginResponse.statusCode).toBe(200);
+      expect(loginResponse.body.token).toBeDefined();
+    });
+
+    it('should fail to log in with incorrect credentials', async () => {
+      const loginResponse = await request(app).post('/api/login').send({
+        email: 'john@example.com',
+        password: 'wrongpassword'
+      });
+      expect(loginResponse.statusCode).toBe(401);
+    });
+  });
 }); 
