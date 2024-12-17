@@ -122,3 +122,12 @@ exports.getAllProducts = tryCatch(async (req, res) => {
   const products = await productModel.find();
   res.status(200).json(products);
 });
+<<<<<<< HEAD
+=======
+
+//get all products
+exports.getAllProducts = tryCatch(async (req, res) => {
+  const products = await productModel.find();
+  res.status(200).json(products);
+});
+>>>>>>> 30f35b0fda99e473994398c8ff5fc77f727e033b
