@@ -11,6 +11,7 @@ const {
   findProductByName,
   findProductByPrice,
   deleteProduct,
+  getAllProducts,
 } = require("../controllers/productController");
 
 router.get("/all", paginate(productModel));

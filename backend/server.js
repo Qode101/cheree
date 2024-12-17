@@ -6,15 +6,17 @@ const categoryRouter = require("./routes/categoryRoutes");
 const purchaseRouter = require("./routes/purchaseRoutes");
 const wishListRouter = require("./routes/wishListRoutes");
 const mpesaRouter = require("./routes/mpesaRoutes");
+const api = require("./routes/api");
 const { logResponseDetails } = require("./middleware/logMiddleware");
 const mongoose = require("mongoose");
 const fileUpload = require("express-fileupload");
+const cors = require("cors");
+const session = require("express-session");
+const passport = require("passport");
+require("./config/passport");
+const authRoutes = require("./routes/authRoutes");
 const { handleErrors, handle404 } = require("./middleware/errorHandling");
 const { AppError } = require("./utils/tryCatch");
-
-const cors = require("cors");
-const paymentRouter = require("./routes/paymentRoutes");
-
 
 dotenv.config();
 console.log(process.env.MONGODB_URI, process.env.PORT, "devs");
@@ -29,23 +31,38 @@ app.use(express.json());
 app.use(fileUpload({ useTempFiles: true }));
 app.use(logResponseDetails);
 
-//app.use(cors());
+app.use(cors());
 
-const api = require("./routes/api");
+app.use(
+  // alloq cors
+  cors({
+    origin: 'http://localhost:4200',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
+  }),
+  // Google Auth Middleware
+  session({
+    secret: "secret",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
+// Routes
 app.get("/", (req, res) => {
   res.send("cheree is online!");
 });
 
-// Routes
-app.use("/api", api); // user routes
+app.use("/auth", authRoutes);
+app.use("/api", api);
 app.use("/products", productRouter);
 app.use("/category", categoryRouter);
 app.use("/purchase", purchaseRouter);
 app.use("/wishlist", wishListRouter);
 app.use("/mpesa", mpesaRouter);
 app.use("/orders", purchaseRouter);
-app.use("/payments", paymentRouter);
 
 // handle 404
 app.use(handle404);
