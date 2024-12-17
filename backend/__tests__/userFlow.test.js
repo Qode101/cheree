@@ -49,6 +49,8 @@ describe('User Flow', () => {
     });
     expect(purchaseResponse.statusCode).toBe(201);
   });
+<<<<<<< HEAD
+=======
 
   describe('User Authentication', () => {
     it('should log in a user', async () => {
@@ -69,4 +71,5 @@ describe('User Flow', () => {
       expect(loginResponse.statusCode).toBe(401);
     });
   });
+>>>>>>> 30f35b0fda99e473994398c8ff5fc77f727e033b
 }); 

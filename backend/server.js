@@ -36,8 +36,8 @@ app.use(cors());
 app.use(
   // alloq cors
   cors({
-    origin: 'http://localhost:4200',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    origin: "http://localhost:4200",
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   }),
   // Google Auth Middleware

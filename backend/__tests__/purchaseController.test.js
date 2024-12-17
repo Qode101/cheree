@@ -1,6 +1,9 @@
 const request = require('supertest');
 const app = require('../server');
+<<<<<<< HEAD
+=======
 const Purchase = require('./mocks/purchaseModel');
+>>>>>>> 30f35b0fda99e473994398c8ff5fc77f727e033b
 
 describe('Purchase API', () => {
   it('should get all purchases', async () => {
@@ -9,6 +12,8 @@ describe('Purchase API', () => {
     expect(response.body).toBeInstanceOf(Array);
   });
 
+<<<<<<< HEAD
+=======
   it('should create a new purchase', async () => {
     const response = await request(app).post('/purchase/add').send({
       user: 'userId',
@@ -27,5 +32,6 @@ describe('Purchase API', () => {
     expect(response.body.amount).toBe(200);
   });
 
+>>>>>>> 30f35b0fda99e473994398c8ff5fc77f727e033b
   //more tests for other endpoints will go here
 }); 

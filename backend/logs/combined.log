@@ -75,6 +75,8 @@
 [2024-11-19 03:06:44.132 PM] warn: GET /mpesa/registerurl 404, User ID: anonymous, IP Address: ::1
 [2024-11-19 03:22:15.288 PM] error: GET /mpesa/registerurl 500, User ID: anonymous, IP Address: ::ffff:127.0.0.1
 [2024-11-19 03:26:19.556 PM] error: GET /mpesa/registerurl 500, User ID: anonymous, IP Address: ::1
+<<<<<<< HEAD
+=======
 [2024-11-13 12:32:06.546 PM] info: GET / 200, User ID: anonymous, IP Address: ::ffff:127.0.0.1
 [2024-11-13 12:32:28.932 PM] info: GET / 200, User ID: anonymous, IP Address: ::ffff:127.0.0.1
 [2024-11-13 12:35:07.611 PM] info: GET /api/ 200, User ID: anonymous, IP Address: ::ffff:127.0.0.1
@@ -144,3 +146,4 @@
 [2024-11-25 11:18:02.939 PM] info: POST /api/sign-up 200, User ID: anonymous, IP Address: ::1
 [2024-11-25 11:18:37.862 PM] info: OPTIONS /api/sign-up 204, User ID: anonymous, IP Address: ::1
 [2024-11-25 11:18:38.237 PM] info: POST /api/sign-up 200, User ID: anonymous, IP Address: ::1
+>>>>>>> 30f35b0fda99e473994398c8ff5fc77f727e033b

@@ -7,17 +7,13 @@ const {
   createProduct,
   updateProduct,
   getProduct,
-  findProductByCategory,
-  findProductByName,
-  findProductByPrice,
+  find,
   deleteProduct,
   getAllProducts,
 } = require("../controllers/productController");
 
-router.get("/all", getAllProducts);
-router.get("/findByName/:name", findProductByName);
-router.get("/findByCategory/:category", findProductByCategory);
-router.get("/findByPrice/:price", findProductByPrice);
+router.get("/all", paginate(productModel));
+router.get("/find/", find); // find products by name, category, price ie
 router.delete("/delete/:id", deleteProduct);
 router.put("/update/:id", updateProduct);
 router.get("/view/:id", getProduct);

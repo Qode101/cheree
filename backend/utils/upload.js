@@ -1,7 +1,7 @@
 const cloudinary = require("../config/cloudinaryConfig");
 const { AppError } = require("./tryCatch");
 
-exports.uploadOptimizeImage = async (imagePath, name) => {
+const uploadOptimizeImage = async (imagePath, name) => {
   try {
     const result = await cloudinary.uploader.upload(imagePath, {
       public_id: name,
@@ -19,3 +19,16 @@ exports.uploadOptimizeImage = async (imagePath, name) => {
     throw new AppError(error.message || "Failed to upload image", 400);
   }
 };
+
+const handleImageUpload = async (files, productName = "pic") => {
+  let name;
+  if (!files || !files.image) {
+    return null;
+  }
+  name = productName.trim();
+
+  const imagePath = files.image.tempFilePath;
+  return await uploadOptimizeImage(imagePath, name);
+};
+
+module.exports = { uploadOptimizeImage, handleImageUpload };

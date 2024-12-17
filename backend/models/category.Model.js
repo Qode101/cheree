@@ -5,7 +5,7 @@ const categorySchema = new Schema({
   name: { type: String, required: true },
   description: { type: String },
   createdAt: { type: Date, default: Date.now },
-  imageUrls: {
+  imageUrl: {
     type: String,
     validate: {
       validator: function (url) {
