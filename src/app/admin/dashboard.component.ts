@@ -46,6 +46,16 @@ interface User {
   status: 'active' | 'inactive';
 }
 
+interface PaginatedResponse {
+  data: Product[];
+  total: number;
+  page: number;
+  limit: number;
+  pages: number;
+  nextPage: number | null;
+  prevPage: number | null;
+}
+
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -86,7 +96,7 @@ export class DashboardComponent implements OnInit {
       name: 'John Smith',
       email: 'john.smith@example.com',
       phone: '+(254)71234567',
-      avatar: '', // Avatar URL will be fetched dynamically
+      avatar: '', 
       role: 'Administrator',
       status: 'active'
     },
@@ -111,7 +121,13 @@ export class DashboardComponent implements OnInit {
   ];
 
   userColumns = ['avatar', 'name', 'email', 'phone', 'role', 'status', 'actions'];
+  
   products: Product[] = [];
+  totalProducts: number = 0;
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+  totalPages: number = 0;
+
   orders: Order[] = [
     {
       id: 'ORD-2024-001',
@@ -147,19 +163,33 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  fetchProducts(): void {
-    this.http.get<Product[]>('http://localhost:5000/products/all').subscribe(
+  fetchProducts(page: number = 1): void {
+    this.http.get<PaginatedResponse>(`http://localhost:5000/products/all?page=${page}&limit=${this.itemsPerPage}`).subscribe(
       (response) => {
-        this.products = response;  // Directly assign the array of products
+        this.products = response.data;
+        this.totalProducts = response.total;
+        this.currentPage = response.page;
+        this.totalPages = response.pages;
       },
       (error) => {
         console.error('Error fetching products:', error);
       }
     );
   }
-  
 
   setActiveItem(itemId: string): void {
     this.activeItem = itemId;
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.fetchProducts(this.currentPage + 1);
+    }
+  }
+
+  previousPage(): void {
+    if (this.currentPage > 1) {
+      this.fetchProducts(this.currentPage - 1);
+    }
   }
 }

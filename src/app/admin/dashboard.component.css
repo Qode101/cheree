@@ -60,6 +60,25 @@
   color: #1976d2;
 }
 
+/* Add these styles for pagination */
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  gap: 15px;
+}
+
+.page-info {
+  font-weight: bold;
+}
+
+/* Optional: Style for disabled buttons */
+.pagination-controls button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .nav-items li.active {
   background-color: #e3f2fd;
   color: #1976d2;

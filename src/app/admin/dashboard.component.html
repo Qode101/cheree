@@ -67,7 +67,6 @@
               </div>
             </div>
 
-            <!-- New Stat Card: Most Sold Item -->
             <div class="stat-card">
               <div class="stat-icon-wrapper">
                 <mat-icon class="stat-icon">local_mall</mat-icon>
@@ -83,7 +82,7 @@
             </div>
           </div>
 
-          <!-- New Sales/Promotions Section -->
+          <!-- Sales/Promotions Section -->
           <div class="sales-promotions-section">
             <div class="section-header">
               <h3>Sales & Promotions</h3>
@@ -151,6 +150,29 @@
                 <button mat-button color="warn">Delete</button>
               </mat-card-actions>
             </mat-card>
+          </div>
+
+          <!-- Pagination Controls -->
+          <div class="pagination-controls">
+            <button 
+              mat-raised-button 
+              (click)="previousPage()" 
+              [disabled]="currentPage === 1"
+            >
+              Previous
+            </button>
+            
+            <span class="page-info">
+              Page {{ currentPage }} of {{ totalPages }}
+            </span>
+            
+            <button 
+              mat-raised-button 
+              (click)="nextPage()" 
+              [disabled]="currentPage === totalPages"
+            >
+              Next
+            </button>
           </div>
         </div>
 
