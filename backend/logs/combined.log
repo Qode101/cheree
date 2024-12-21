@@ -133,6 +133,7 @@
 [2024-11-13 03:14:46.842 PM] info: GET /wishlist/user/673476b11b5c93369d08ad4d 200, User ID: anonymous, IP Address: ::ffff:127.0.0.1
 [2024-11-13 03:15:00.391 PM] warn: POST /wishlist/add 400, User ID: anonymous, IP Address: ::ffff:127.0.0.1
 [2024-11-13 03:15:09.176 PM] info: POST /wishlist/add 200, User ID: anonymous, IP Address: ::ffff:127.0.0.1
+<<<<<<< Updated upstream
 [2024-11-25 10:43:47.370 PM] warn: GET /auth/google 302, User ID: anonymous, IP Address: ::1
 [2024-11-25 10:52:47.678 PM] info: OPTIONS /api/sign-up 200, User ID: anonymous, IP Address: ::1
 [2024-11-25 10:53:33.120 PM] info: OPTIONS /api/login 200, User ID: anonymous, IP Address: ::1
@@ -147,3 +148,26 @@
 [2024-11-25 11:18:37.862 PM] info: OPTIONS /api/sign-up 204, User ID: anonymous, IP Address: ::1
 [2024-11-25 11:18:38.237 PM] info: POST /api/sign-up 200, User ID: anonymous, IP Address: ::1
 >>>>>>> 30f35b0fda99e473994398c8ff5fc77f727e033b
+=======
+[2024-11-22 09:43:32.308 PM] warn: GET /access_token 404, User ID: anonymous, IP Address: ::1
+[2024-11-22 09:43:54.786 PM] info: GET /mpesa/access_token 200, User ID: anonymous, IP Address: ::1
+[2024-11-22 09:45:36.558 PM] error: GET /mpesa/registerurl 500, User ID: anonymous, IP Address: ::1
+[2024-11-22 09:53:15.088 PM] info: POST /mpesa/stkpush 200, User ID: anonymous, IP Address: ::1
+[2024-11-22 09:54:04.244 PM] info: POST /mpesa/stkpush 200, User ID: anonymous, IP Address: ::1
+[2024-11-22 09:55:39.414 PM] error: GET /mpesa/registerurl 500, User ID: anonymous, IP Address: ::1
+[2024-11-22 10:01:57.833 PM] info: GET /mpesa/registerurl 200, User ID: anonymous, IP Address: ::1
+[2024-11-22 10:11:36.680 PM] info: POST /api/sign-up 200, User ID: anonymous, IP Address: ::1
+[2024-11-22 10:13:16.600 PM] warn: POST /api/login 401, User ID: anonymous, IP Address: ::1
+[2024-11-22 10:13:33.310 PM] info: POST /api/login 200, User ID: anonymous, IP Address: ::1
+[2024-11-22 10:14:03.145 PM] warn: POST /api/login 401, User ID: anonymous, IP Address: ::1
+[2024-11-22 10:34:03.451 PM] warn: GET /api/sign-up 404, User ID: anonymous, IP Address: ::1
+[2024-11-22 10:34:39.833 PM] info: POST /api/sign-up 200, User ID: anonymous, IP Address: ::1
+[2024-11-22 10:36:00.056 PM] info: POST /api/login 200, User ID: anonymous, IP Address: ::1
+[2024-11-22 10:37:37.457 PM] warn: POST /api/login 401, User ID: anonymous, IP Address: ::1
+[2024-11-22 11:07:06.390 PM] info: GET /mpesa/access_token 200, User ID: anonymous, IP Address: ::1
+[2024-11-22 11:07:48.272 PM] info: GET /mpesa/registerurl 200, User ID: anonymous, IP Address: ::1
+[2024-11-22 11:12:28.748 PM] warn: POST /mpesa/stkpush 404, User ID: anonymous, IP Address: ::1
+[2024-11-22 11:12:57.052 PM] warn: GET /mpesa/stkpush 404, User ID: anonymous, IP Address: ::1
+[2024-11-22 11:13:44.753 PM] warn: POST /mpesa/stkpush 404, User ID: anonymous, IP Address: ::1
+[2024-11-22 11:15:37.572 PM] warn: POST /mpesa/stkpush 404, User ID: anonymous, IP Address: ::1
+>>>>>>> Stashed changes
