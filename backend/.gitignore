@@ -11,6 +11,16 @@
 npm-debug.log
 yarn-error.log
 
+# Logs
+*.log
+logs/
+backend/logs/
+backend/logs/*.log
+
+# Environment variables
+.env
+.env.*
+
 # IDEs and editors
 .idea/
 .project
@@ -40,5 +50,4 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
-.env
 eslint.config.mjs
